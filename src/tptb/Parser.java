@@ -56,11 +56,11 @@ public class Parser {
 					int x = sc.nextInt();
 					int y = sc.nextInt();
 					if(index ==0){
-						players[index] =  new Player(new Loc(x, y), "player "+index, Color.BLUE);
+						players[index] =  new Player(new Loc(x, y), "player "+index);
 						index++;
 					}
 					else if(index == 1){
-						players[index] =  new Player(new Loc(x, y), "player "+index, Color.BLUE);
+						players[index] =  new Player(new Loc(x, y), "player "+index);
 						index++;
 					}
 				}

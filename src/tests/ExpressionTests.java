@@ -38,7 +38,7 @@ public class ExpressionTests {
 		
 		System.out.println(ans);
 		
-		assert(ans == 0);
+		assertTrue(ans == 0);
 		
 		
 		
