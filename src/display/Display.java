@@ -139,16 +139,15 @@ public class Display {
 			if(!tile.isMoveable()){
 //				UI.fillRect(x*tileWidth, y*tileHeight, tileWidth, tileHeight);
 				UI.drawImage(tiles[8*(6+tile.hashCode()%2) +2+ tile.hashCode()%5], x*tileWidth, y*tileWidth, tileWidth, tileHeight);
-				Integer val = tile.getValue();
-//				System.out.println(val);
-				if (val != null){
-					UI.drawImage(numbers[val*2], x*tileWidth, y*tileWidth, tileWidth, tileHeight);
-				}
 			}
 			else{
 				//TODO draw tile
 //				UI.drawRect(x*tileWidth, y*tileHeight, tileWidth, tileHeight);
 				UI.drawImage(tiles[0], x*tileWidth, y*tileWidth, tileWidth, tileHeight);
+				Integer val = tile.getValue();
+				if (val != null){
+					UI.drawImage(numbers[val*2], x*tileWidth, y*tileWidth, tileWidth, tileHeight);
+				}
 			}
 		
 	}

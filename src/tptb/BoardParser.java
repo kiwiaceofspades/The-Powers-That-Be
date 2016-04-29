@@ -81,7 +81,7 @@ public class BoardParser {
 					tiles[x][y] = new Tile(x, y);
 				}
 				else if(Character.isDigit(row[x])){
-					tiles[x][y] = new Tile(x, y, row[x]);
+					tiles[x][y] = new Tile(x, y, Integer.parseInt(String.valueOf(row[x])));
 				}
 			}
 		}
