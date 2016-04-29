@@ -14,19 +14,29 @@ public class Display {
 	
 	public Display(Tile[][] map, ArrayList<VarBlock> ent, Player[] play){
 		//TODO Handle ent changes and players
+		UI.getFrame().setResizable(false);
+		UI.setWindowSize(1024, 576 );
+		UI.setDivider(0.15);
 		updateDisplay(map, ent, play);
+		while (true){
+			UI.sleep(100);
+			updateDisplay(map, ent, play);
+		}
 	}
 	
 	private void updateDisplay(Tile[][] map, ArrayList<VarBlock> ent, Player[] play){
-		int w = UI.getCanvasWidth();
-		int h = UI.getCanvasHeight();
-		double aspectRation = map.length/map[0].length;
+		UI.clearGraphics();
+		// get window size
+		double w = UI.getCanvasWidth();
+		double h = UI.getCanvasHeight();
+		//get board aspect ratio
+		double aspectRatio = (double)map.length/(double)map[0].length;
 		double tilesize;
-		if((w/h)<aspectRation){
-			tilesize = (double)w/map[0].length;
+		if((w/h)<aspectRatio){//if the draw area is wider than he board
+			tilesize = (double)w/map.length;
 		}
-		else {
-			tilesize = (double)h/map.length;
+		else {//if the draw area is taller than the board
+			tilesize = (double)h/map[0].length;
 		}
 		if(map == null || ent == null){
 			return;
@@ -78,10 +88,13 @@ public class Display {
 	private void drawTile(Tile tile, int x, int y, double tileWidth, double tileHeight){
 		
 		UI.setColor(Color.BLACK);
-			
-		//TODO draw tile
-		UI.drawRect(x*tileWidth, y*tileHeight, tileWidth, tileHeight);
-		
+			if(!tile.isMoveable()){
+				UI.fillRect(x*tileWidth, y*tileHeight, tileWidth, tileHeight);
+			}
+			else{
+				//TODO draw tile
+				UI.drawRect(x*tileWidth, y*tileHeight, tileWidth, tileHeight);
+			}
 		
 	}
 }

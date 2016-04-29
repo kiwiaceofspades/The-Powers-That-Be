@@ -100,7 +100,8 @@ public class Parser {
 			while(sc.hasNext()){
 				String next = sc.next();
 				if(next.equals("eq")){
-					StringTokenizer st = new StringTokenizer("=");
+					next = sc.nextLine();
+					StringTokenizer st = new StringTokenizer(next, "=");
 					equation[0] = st.nextToken();
 					equation[1] = st.nextToken();
 				}
