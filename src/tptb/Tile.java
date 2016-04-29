@@ -4,6 +4,14 @@ public class Tile {
 	private Loc location;
 	private final boolean moveable;
 	
+	public Tile(int x, int y){
+		this(x, y, true);
+	}
+	
+	public Tile(int x, int y, boolean moveable){
+		this(new Loc(x, y), moveable);
+	}
+	
 	public Tile(Loc location){
 		this(location, true);
 	}
