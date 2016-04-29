@@ -11,7 +11,7 @@ public class Game {
 	private ArrayList<Entity> onBoard;
 	
 	public Game(){
-		
+		Parser.parseBoard("Board1");
 	}
 	
 	public boolean moveable(Player pl, Direction dir){
