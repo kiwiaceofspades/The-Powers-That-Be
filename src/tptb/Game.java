@@ -39,10 +39,13 @@ public class Game implements UIKeyListener{
 		switch (dir){
 			case Down: targety++; break;
 			case Up: targety--; break;
-			case Left: targetx++; break;
-			case Right: targety--; break;
+			case Left: targetx--; break;
+			case Right: targetx++; break;
 		}
 		Loc targetLoc = new Loc(targetx, targety);
+		if (!getTileAt(targetLoc).isMoveable()){
+			return null;
+		}
 		VarBlock target = null;
 		for (VarBlock v: onBoard){
 			if (v.getLocation().equals(targetLoc)){
@@ -52,7 +55,7 @@ public class Game implements UIKeyListener{
 		}
 		if (target == null){
 			return en;
-		} else if (moveable(target, dir).equals(target)){
+		} else if (target.equals(moveable(target, dir))){
 			return target;
 		} else {
 			return null;
