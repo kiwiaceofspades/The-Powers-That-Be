@@ -64,16 +64,16 @@ public class Game implements UIKeyListener{
 			System.out.println("There is not two players");
 		
 		switch(key){
-			case "w": 		players[0].move(Direction.Up);
-			case "s": 		players[0].move(Direction.Down);
-			case "a": 		players[0].move(Direction.Left);
-			case "d": 		players[0].move(Direction.Right);
+			case "w": 		players[0].move(Direction.Up); break;
+			case "s": 		players[0].move(Direction.Down); break;
+			case "a": 		players[0].move(Direction.Left); break;
+			case "d": 		players[0].move(Direction.Right); break;
 			
-			case "Up": 		players[1].move(Direction.Up);
-			case "Down": 	players[1].move(Direction.Down);
-			case "Left": 	players[1].move(Direction.Left);
-			case "Right": 	players[1].move(Direction.Right);
-			
+			case "Up": 		players[1].move(Direction.Up); break;
+			case "Down": 	players[1].move(Direction.Down); break;
+			case "Left": 	players[1].move(Direction.Left); break;
+			case "Right": 	players[1].move(Direction.Right); break;
+			default:
 		}
 		
 		
