@@ -20,6 +20,11 @@ public class Display {
 	}
 	
 	private void updateDisplay(Tile[][] map, ArrayList<Entity> ent){
+		
+		if(map == null || ent == null){
+			return;
+		}
+		
 		for(int x = 0; x < map.length; x++){
 			for(int y = 0; y < map[x].length; y++){
 				
@@ -33,7 +38,11 @@ public class Display {
 		}
 	}
 	
-	private void drawEntity(ArrayList<Entity> ent, int x, int y, double tileWidth, double tileHeight){		
+	private void drawEntity(ArrayList<Entity> ent, int x, int y, double tileWidth, double tileHeight){	
+		
+		if(ent == null)
+			return;
+		
 		for(Entity e : ent){
 			if(e.getLocation().equals(new Loc(x, y))){
 				//TODO draw entity
