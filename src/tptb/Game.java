@@ -122,9 +122,7 @@ public class Game implements UIKeyListener{
 			}
 		}	
 		
-		if(verify.evaluateExpression()){
-			UI.print("CORRECT!");
-		}
+		UI.print(verify.evaluateExpression());
 	}
 	
 	public Entity moveable(Entity en, Direction dir){
