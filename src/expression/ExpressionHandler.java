@@ -34,7 +34,7 @@ public class ExpressionHandler {
 		System.out.println(prefix);
 		
 		for(int i = 0; i < prefix.length+1; i++){
-			subExpr[i] = truncateBrackets(subValues(prefix[i], map));
+			subExpr[i] = removeBrackets(subValues(prefix[i], map));
 		}
 		System.out.println(subExpr);
 		
@@ -56,12 +56,8 @@ public class ExpressionHandler {
 		return prefix;
 	}
 	
-	public static String truncateBrackets(String s){
-		System.out.println(s);
-		if(s.charAt(0) == '(' && s.charAt(s.length()-1) == ')'){
-			return s.substring(1, s.length()-1);
-		}
-		return s;
+	public static String removeBrackets(String s){
+		return s.replaceAll("[(|)]", "");
 	}
 	
 	private Map<VarBlock, Integer> getValues(){

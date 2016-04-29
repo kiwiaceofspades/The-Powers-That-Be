@@ -34,6 +34,8 @@ public class PrefixEvaluator {
             return operand1 / operand2;
         } else if (operator.equals("%")) {
             return operand1 % operand2;
+        } else if (operator.equals("^")){
+        	return Math.pow(operand1, operand2);
         } else {
             throw new RuntimeException("illegal operator " + operator);
         }

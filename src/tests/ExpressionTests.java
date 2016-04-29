@@ -28,15 +28,16 @@ public class ExpressionTests {
 		
 	@Test
 	public void test() {
-		String arg = Prefixer.infixToPrefixConvert("X - X ", true);
+		String arg = Prefixer.infixToPrefixConvert("Y * Y + X", true);
 		System.out.println(arg);
-		arg = ExpressionHandler.truncateBrackets(arg);
+		arg = ExpressionHandler.removeBrackets(arg);
 		System.out.println(arg);
-		arg = ExpressionHandler.subValues("- X X", getMap());
-		
+		arg = ExpressionHandler.subValues(arg, getMap());
+		System.out.println(arg);
 		double ans = PrefixEvaluator.evaluate(new Scanner(arg));
 		
 		System.out.println(ans);
+		
 		assert(ans == 0);
 		
 		

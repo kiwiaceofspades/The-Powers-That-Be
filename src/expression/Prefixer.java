@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
 public class Prefixer {
 
 	public static boolean isOperand(String s) {
-		return !(s.equals("+") || s.equals("-") || s.equals("/") || s.equals("*") || s.equals("(") || s.equals(")"));
+		return !(s.equals("^") || s.equals("+") || s.equals("-") || s.equals("/") || s.equals("*") || s.equals("(") || s.equals(")"));
 	}
 	
 	public static boolean isNumber(String s){
