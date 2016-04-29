@@ -1,13 +1,16 @@
-package tptb;
+package expression;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import tptb.Game;
+import tptb.VarBlock;
 
 public class ExpressionHandler {
 
 	private Game game;
 	
-	public ExpressionHandler(Game game){
+	public ExpressionHandler(Game game, String expression){
 		this.game = game;
 	}
 	
@@ -27,5 +30,7 @@ public class ExpressionHandler {
 			if(val != null && val >= 0)
 				map.put(vb, val);
 		}
+		
+		return map;
 	}
 }
