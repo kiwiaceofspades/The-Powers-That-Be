@@ -17,8 +17,4 @@ public class Player extends Entity{
 	
 	public String getName(){return name;}
 	
-	public boolean move(Game.Direction dir){
-		
-		return false;
-	}
 }

@@ -12,4 +12,15 @@ public abstract class Entity {
 		
 		return loc;
 	}
+	
+	public boolean move(Game.Direction dir){
+		switch (dir){
+			case Down: loc.down(); break;
+			case Up: loc.up(); break;
+			case Left: loc.left(); break;
+			case Right: loc.right(); break;
+			
+		}
+		return false;
+	}
 }

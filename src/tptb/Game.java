@@ -45,11 +45,18 @@ public class Game implements UIKeyListener{
 		Loc targetLoc = new Loc(targetx, targety);
 		VarBlock target = null;
 		for (VarBlock v: onBoard){
-			if (false);
+			if (v.getLocation().equals(targetLoc)){
+				target = v;
+				break;
+			}
 		}
-		
-		
-		return null;
+		if (target == null){
+			return en;
+		} else if (moveable(target, dir).equals(target)){
+			return target;
+		} else {
+			return null;
+		}
 	}
 	
 	//----------------------------------------------
