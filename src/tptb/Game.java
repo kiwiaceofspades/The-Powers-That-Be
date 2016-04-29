@@ -108,14 +108,15 @@ public class Game implements UIKeyListener{
 			case "Right": 	d = Direction.Right; p = players[1]; break;
 			default:
 		}
-		Entity e = moveable(p, d);
-		if ((e = moveable(p, d))!=null){
-			if (e instanceof VarBlock){
-				e.move(d);
+		if (p!=null){
+			Entity e = moveable(p, d);
+			if ((e = moveable(p, d))!=null){
+				if (e instanceof VarBlock){
+					e.move(d);
+				}
+				p.move(d);
 			}
-			p.move(d);
 		}
-		
 		
 		
 	}
