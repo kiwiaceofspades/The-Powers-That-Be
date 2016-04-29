@@ -104,13 +104,13 @@ public class Display {
 //				UI.fillRect(x*tileWidth, y*tileHeight, tileWidth, tileHeight);
 				UI.drawImage(box, x*tileWidth+tileWidth*0.05, y*tileHeight+tileHeight*0.05, tileWidth*0.9, tileHeight*0.9);
 				switch(e.getName()){
-				case 'x': UI.drawImage(numbers[1], x*tileWidth+tileWidth*0.05, y*tileHeight+tileHeight*0.05, tileWidth*0.9, tileHeight*0.9); break;
-				case 'y': UI.drawImage(numbers[3], x*tileWidth+tileWidth*0.05, y*tileHeight+tileHeight*0.05, tileWidth*0.9, tileHeight*0.9); break;
-				case 'z': UI.drawImage(numbers[5], x*tileWidth+tileWidth*0.05, y*tileHeight+tileHeight*0.05, tileWidth*0.9, tileHeight*0.9); break;
+				case 'X': UI.drawImage(numbers[1], x*tileWidth+tileWidth*0.05, y*tileHeight+tileHeight*0.05, tileWidth*0.9, tileHeight*0.9); break;
+				case 'Y': UI.drawImage(numbers[3], x*tileWidth+tileWidth*0.05, y*tileHeight+tileHeight*0.05, tileWidth*0.9, tileHeight*0.9); break;
+				case 'Z': UI.drawImage(numbers[5], x*tileWidth+tileWidth*0.05, y*tileHeight+tileHeight*0.05, tileWidth*0.9, tileHeight*0.9); break;
 				
-				case 'a': UI.drawImage(numbers[7], x*tileWidth+tileWidth*0.05, y*tileHeight+tileHeight*0.05, tileWidth*0.9, tileHeight*0.9); break;
-				case 'b': UI.drawImage(numbers[9], x*tileWidth+tileWidth*0.05, y*tileHeight+tileHeight*0.05, tileWidth*0.9, tileHeight*0.9); break;
-				case 'c': UI.drawImage(numbers[11], x*tileWidth+tileWidth*0.05, y*tileHeight+tileHeight*0.05, tileWidth*0.9, tileHeight*0.9); break;
+				case 'A': UI.drawImage(numbers[7], x*tileWidth+tileWidth*0.05, y*tileHeight+tileHeight*0.05, tileWidth*0.9, tileHeight*0.9); break;
+				case 'B': UI.drawImage(numbers[9], x*tileWidth+tileWidth*0.05, y*tileHeight+tileHeight*0.05, tileWidth*0.9, tileHeight*0.9); break;
+				case 'C': UI.drawImage(numbers[11], x*tileWidth+tileWidth*0.05, y*tileHeight+tileHeight*0.05, tileWidth*0.9, tileHeight*0.9); break;
 				
 				}
 				return;
