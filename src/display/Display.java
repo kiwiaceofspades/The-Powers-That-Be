@@ -42,6 +42,9 @@ public class Display {
 				if(e instanceof Player){
 					UI.setColor(((Player) e).getCol());
 				}
+				else if(e instanceof VarBlock){
+					UI.setColor(Color.RED);
+				}
 				
 				UI.fillRect(x*tileWidth, y*tileHeight, tileWidth, tileHeight);
 				return;
