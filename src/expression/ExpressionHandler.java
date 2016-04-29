@@ -34,11 +34,7 @@ public class ExpressionHandler {
 		System.out.println(prefix);
 		
 		for(int i = 0; i < prefix.length+1; i++){
-			for(Map.Entry<VarBlock, Integer> m : map.entrySet()){
-				//NOTE: If the value is >9 it will be a value of its first digit.
-				subExpr[i] = prefix[i].replace(m.getKey().getName(), 
-						m.getValue().toString().toCharArray()[0]);
-			}
+			subExpr[i] = truncateBrackets(subValues(prefix[i], map));
 		}
 		System.out.println(subExpr);
 		
@@ -49,7 +45,24 @@ public class ExpressionHandler {
 		}
 		
 		return vals[0] == vals[1];
-}
+	}
+	
+	public static String subValues(String prefix, Map<VarBlock, Integer> map ){
+		for(Map.Entry<VarBlock, Integer> m : map.entrySet()){
+			//NOTE: If the value is >9 it will be a value of its first digit.
+			prefix = prefix.replace(m.getKey().getName(), 
+					m.getValue().toString().toCharArray()[0]);
+		}
+		return prefix;
+	}
+	
+	public static String truncateBrackets(String s){
+		System.out.println(s);
+		if(s.charAt(0) == '(' && s.charAt(s.length()-1) == ')'){
+			return s.substring(1, s.length()-1);
+		}
+		return s;
+	}
 	
 	private Map<VarBlock, Integer> getValues(){
 		
