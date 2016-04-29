@@ -1,6 +1,6 @@
 package tptb;
 
-public class Loc {
+public class Loc implements Cloneable{
 	private int x, y;
 	
 	public Loc(int x, int y){
@@ -62,4 +62,10 @@ public class Loc {
 		}
 		return true;
 	}	
+	
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return new Loc(this.x, this.y);
+	}
 }
