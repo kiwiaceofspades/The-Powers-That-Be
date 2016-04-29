@@ -16,11 +16,14 @@ public class Game implements UIKeyListener{
 	
 	private ArrayList<VarBlock> onBoard;
 	private Player[] players = new Player[2];
+	private String board1 = "Board1";
 	
 	public Game(){
 		
 		UI.setKeyListener(this);
-		Parser.parseBoard("Board1");
+		board = Parser.parseBoard(board1);
+		onBoard = Parser.parseBlocks(board1);
+		players = Parser.parsePlayers(board1);
 		Display d = new Display(board, onBoard, players);
 		
 	}
