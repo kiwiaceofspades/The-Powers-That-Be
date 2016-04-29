@@ -30,10 +30,7 @@ public class Display {
 		UI.setDivider(0.15);
 		BufferedImage b = new BufferedImage(1024, 576, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = b.createGraphics();
-		System.err.println("adsfsdf");
-//		b.
 		updateDisplay(map, ent, play, g);
-//		UI.setImmediateRepaint(false);
 		while (true){
 			UI.sleep(100);
 			g.fillRect(0, 0, b.getWidth(), b.getHeight());
@@ -70,7 +67,6 @@ public class Display {
 	}
 	
 	private void updateDisplay(Tile[][] map, ArrayList<VarBlock> ent, Player[] play, Graphics2D g){
-//		UI.clearGraphics();
 		// get window size
 		double w = UI.getCanvasWidth();
 		double h = UI.getCanvasHeight();
@@ -109,11 +105,10 @@ public class Display {
 				//TODO draw entity
 					UI.setColor(Color.RED);
 				
-				
 //				UI.fillRect(x*tileWidth, y*tileHeight, tileWidth, tileHeight);
 //				UI.drawImage(box, x*tileWidth+tileWidth*0.05, y*tileHeight+tileHeight*0.05, tileWidth*0.9, tileHeight*0.9);
 				g.drawImage(box, (int) (x*tileWidth+tileWidth*0.05), (int) (y*tileHeight+tileHeight*0.05), (int) (tileWidth*0.9), (int)(tileHeight*0.9), UI.theUI.canvas);
-//				UI.println(g);
+				UI.println(g);
 //				UI.println(UI.theUI.canvas);
 				switch(e.getName()){
 				case 'X': g.drawImage(numbers[1], (int) (x*tileWidth+tileWidth*0.05), (int) (y*tileHeight+tileHeight*0.05), (int) (tileWidth*0.9), (int)(tileHeight*0.9), UI.theUI.canvas); break;
