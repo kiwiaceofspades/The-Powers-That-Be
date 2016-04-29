@@ -27,6 +27,7 @@ public class Display {
 		box = loadSpriteSheet("assets/RTS_Crate.png", 512, 1,1)[0];
 		UI.setDivider(0.15);
 		updateDisplay(map, ent, play);
+		UI.setImmediateRepaint(false);
 		while (true){
 			UI.sleep(100);
 			updateDisplay(map, ent, play);
