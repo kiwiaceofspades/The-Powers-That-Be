@@ -63,4 +63,9 @@ public class ExpressionTests {
 		assertTrue(evaluate("Y ^ X") == 9);
 	}
 	
+	@Test
+	public void bracketedExponent(){
+		assertTrue(evaluate("X ^ ( Z - Y )") == 2);
+	}
+	
 }
