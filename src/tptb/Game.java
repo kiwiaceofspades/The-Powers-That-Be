@@ -29,7 +29,7 @@ public class Game implements UIKeyListener{
 		
 		UI.setKeyListener(this);
 		new BoardParser(board1, this);
-		ExpressionHandler verify = new ExpressionHandler(this);
+		verify = new ExpressionHandler(this);
 		UI.print(joinExpressions());
 		new Display(board, onBoard, players);
 	}
@@ -121,8 +121,8 @@ public class Game implements UIKeyListener{
 				p.move(d);
 			}
 		}	
-		
-		UI.print(verify.evaluateExpression());
+		UI.println("YOU ARE...");
+		UI.println(verify.evaluateExpression());
 	}
 	
 	public Entity moveable(Entity en, Direction dir){
