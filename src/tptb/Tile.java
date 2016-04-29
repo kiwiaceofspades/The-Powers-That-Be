@@ -17,5 +17,8 @@ public class Tile {
 		return location.clone();
 	}
 	
+	public boolean moveable(){
+		return moveable;
+	}
 	
 }
