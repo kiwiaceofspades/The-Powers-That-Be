@@ -1,6 +1,18 @@
 package tptb;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.util.ArrayList;
+
+import javax.swing.JComponent;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
+import javax.swing.JRootPane;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTextArea;
+import javax.swing.JViewport;
 
 import display.Display;
 import ecs100.UI;
@@ -18,6 +30,7 @@ public class Game implements UIKeyListener{
 	private String board1 = "Board1";
 	private String[] exprs;
 	ExpressionHandler verify;
+	private JTextArea textArea;
 	
 	//----------------------------------------------
 	//Constructor
@@ -28,6 +41,7 @@ public class Game implements UIKeyListener{
 		UI.setKeyListener(this);
 		new BoardParser(board1, this);
 		verify = new ExpressionHandler(this);
+		setupTextArea();
 		UI.println(joinExpressions());
 		new Display(board, onBoard, players);
 	}
@@ -154,6 +168,15 @@ public class Game implements UIKeyListener{
 		}
 	}
 	
-	
+	private void setupTextArea(){
+		JComponent jcp = (JComponent)UI.theUI.canvas;
+		JSplitPane jsp = (JSplitPane) jcp.getParent().getParent().getParent();
+		JScrollPane jscp = (JScrollPane) jsp.getLeftComponent();
+		textArea = (JTextArea) jscp.getViewport().getView();
+		textArea.setForeground(Color.GREEN);
+		textArea.setBackground(Color.BLACK);
+		Font font = new Font("Verdana", Font.BOLD, 14);
+		textArea.setFont(font);
+	}
 	
 }
