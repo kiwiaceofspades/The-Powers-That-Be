@@ -10,7 +10,7 @@ import expression.ExpressionHandler;
 
 public class BoardParser {
 	
-	public static Game parse(String board_file){
+	public BoardParser(String board_file, Game g){
 		try {
 			Scanner sc = new Scanner(new File(board_file));
 			
@@ -19,8 +19,7 @@ public class BoardParser {
 			Player[] players = new Player[2];
 			int playIndex = 0;
 			ArrayList<VarBlock> vars = new ArrayList<VarBlock>();
-			String[] expr;
-			ExpressionHandler ex;
+			String[] expr = new String[2];
 			
 			while(sc.hasNext()){
 				String s = sc.next();
@@ -33,7 +32,10 @@ public class BoardParser {
 				}
 			}
 			
-			Game g = new Game(tiles, players, vars, expr);
+			g.setBoard(tiles);
+			g.setPlayers(players);
+			g.setVarBlocks(vars);
+			g.setExpression(expr);
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

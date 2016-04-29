@@ -20,8 +20,8 @@ public class ExpressionHandler {
 		
 		expr = game.getExpressions();
 		prefix = new String[expr.length + 1];
-		
-		for(int i = 0; i <= expr.length; i++){
+		System.out.println(expr.length);
+		for(int i = 0; i < expr.length; i++){
 			prefix[i] = Prefixer.infixToPrefixConvert(expr[i], false);
 		}		
 	}
