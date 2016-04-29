@@ -21,7 +21,6 @@ public class ExpressionHandler {
 		
 		expr = game.getExpressions();
 		prefix = new String[expr.length];
-		System.out.println(expr.length);
 		for(int i = 0; i < expr.length; i++){
 			prefix[i] = Prefixer.infixToPrefixConvert(expr[i], false);
 		}		
@@ -32,12 +31,9 @@ public class ExpressionHandler {
 		
 		String[] subExpr = new String[prefix.length];
 		
-		System.out.println(prefix);
-		
 		for(int i = 0; i < prefix.length; i++){
 			subExpr[i] = removeBrackets(subValues(prefix[i], map));
 		}
-		System.out.println(subExpr);
 		
 		Double[] vals = new Double[subExpr.length+1];
 		
@@ -48,14 +44,12 @@ public class ExpressionHandler {
 				//UI.println("Need more variables");
 			}
 		}
-		System.out.println(vals[0] + ", " + vals[1]);
+		System.out.println(vals[0] + "; " + vals[1]);
 		return vals[0] != null && vals[1] != null && vals[0] == vals[1];
 	}
 	
 	public static String subValues(String prefix, Map<VarBlock, Integer> map ){
-		
-		System.out.println("test" + prefix);
-		
+				
 		for(Map.Entry<VarBlock, Integer> m : map.entrySet()){
 			//NOTE: If the value is >9 it will be a value of its first digit.
 			prefix = prefix.replace(m.getKey().getName(), 
