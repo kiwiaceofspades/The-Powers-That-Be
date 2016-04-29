@@ -46,14 +46,14 @@ public class ExpressionHandler {
 			}
 		}
 		System.out.println(vals[0] + "; " + vals[1]);
-		return vals[0] != null && vals[1] != null && vals[0] == vals[1];
+		return vals[0] != null && vals[1] != null && vals[0].doubleValue() == vals[1].doubleValue();
 	}
 	
 	public static String subValues(String prefix, Map<VarBlock, Integer> map ){
 				
 		for(Map.Entry<VarBlock, Integer> m : map.entrySet()){
 			//NOTE: If the value is >9 it will be a value of its first digit.
-			System.out.println("Map ENtry: " + m.getKey().getName() + ", " + m.getValue());
+			System.out.println("Map Entry: " + m.getKey().getName() + ", " + m.getValue());
 			prefix = prefix.replace(m.getKey().getName(), 
 					m.getValue().toString().toCharArray()[0]);
 		}

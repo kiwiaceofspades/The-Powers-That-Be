@@ -1,7 +1,5 @@
 package tptb;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import display.Display;
@@ -30,7 +28,7 @@ public class Game implements UIKeyListener{
 		UI.setKeyListener(this);
 		new BoardParser(board1, this);
 		verify = new ExpressionHandler(this);
-		UI.print(joinExpressions());
+		UI.println(joinExpressions());
 		new Display(board, onBoard, players);
 	}
 	
@@ -121,8 +119,9 @@ public class Game implements UIKeyListener{
 				p.move(d);
 			}
 		}	
-		UI.println("YOU ARE...");
-		UI.println(verify.evaluateExpression());
+		if(verify.evaluateExpression()){
+			UI.println("CORRECT!");
+		}
 	}
 	
 	public Entity moveable(Entity en, Direction dir){
