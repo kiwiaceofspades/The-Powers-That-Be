@@ -7,9 +7,6 @@ import ecs100.*;
 import tptb.*;
 
 public class Display {
-			
-	private static int GAME_SPACE_WIDTH = UI.getCanvasWidth();
-	private static int GAME_SPACE_HEIGHT = UI.getCanvasHeight();
 	
 	
 	
@@ -17,11 +14,20 @@ public class Display {
 	
 	public Display(Tile[][] map, ArrayList<VarBlock> ent, Player[] play){
 		//TODO Handle ent changes and players
-		updateDisplay(map, ent);
+		updateDisplay(map, ent, play);
 	}
 	
-	private void updateDisplay(Tile[][] map, ArrayList<Entity> ent){
-		
+	private void updateDisplay(Tile[][] map, ArrayList<VarBlock> ent, Player[] play){
+		int w = UI.getCanvasWidth();
+		int h = UI.getCanvasHeight();
+		double aspectRation = map.length/map[0].length;
+		double tilesize;
+		if((w/h)<aspectRation){
+			tilesize = (double)w/map[0].length;
+		}
+		else {
+			tilesize = (double)h/map.length;
+		}
 		if(map == null || ent == null){
 			return;
 		}
@@ -29,38 +35,44 @@ public class Display {
 		for(int x = 0; x < map.length; x++){
 			for(int y = 0; y < map[x].length; y++){
 				
-				double tileWidth = GAME_SPACE_WIDTH/map.length;
-				double tileHeight = GAME_SPACE_HEIGHT/map[x].length;
+				drawTile(map[x][y], x, y, tilesize, tilesize);
 				
-				drawTile(map[x][y], x, y, tileWidth, tileHeight);
+				drawVarBlock(ent, x, y, tilesize, tilesize);
 				
-				drawEntity(ent, x, y, tileWidth, tileHeight);
+				drawPlayer(play, x, y, tilesize, tilesize);
 			}
 		}
 	}
 	
-	private void drawEntity(ArrayList<Entity> ent, int x, int y, double tileWidth, double tileHeight){	
+	private void drawVarBlock(ArrayList<VarBlock> ent, int x, int y, double tileWidth, double tileHeight){	
 		
 		if(ent == null)
 			return;
 		
-		for(Entity e : ent){
+		for(VarBlock e : ent){
 			if(e.getLocation().equals(new Loc(x, y))){
 				//TODO draw entity
-				
-				
-				if(e instanceof Player){
-					UI.setColor(((Player) e).getCol());
-				}
-				else if(e instanceof VarBlock){
 					UI.setColor(Color.RED);
-				}
+				
 				
 				UI.fillRect(x*tileWidth, y*tileHeight, tileWidth, tileHeight);
 				return;
 			}
 		}
 		
+	}
+	
+	private void drawPlayer(Player[] play, int x, int y, double tileWidth, double tileHeight){
+		if(play == null)
+			return;
+		
+		for(int i = 0; i < 2; i++){
+			if(play[i].getLocation().equals(new Loc(x, y))){
+				UI.setColor(play[i].getCol());
+				
+				UI.fillOval(x*tileWidth, y*tileHeight, tileWidth, tileHeight);
+			}
+		}
 	}
 	
 	private void drawTile(Tile tile, int x, int y, double tileWidth, double tileHeight){
