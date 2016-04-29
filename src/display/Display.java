@@ -19,9 +19,15 @@ public class Display {
 	private final BufferedImage box;
 //	private final Graphics2D g;
 	
+	private Tile[][]map;
+	private ArrayList<VarBlock> ent;
+	Player[] play;
+	
 	
 	public Display(Tile[][] map, ArrayList<VarBlock> ent, Player[] play){
-		//TODO Handle ent changes and players
+		this.map = map;
+		this.ent = ent;
+		this.play = play;
 		UI.getFrame().setResizable(false);
 		UI.setWindowSize(1024, 576 );
 		tiles = loadSpriteSheet("assets/hyptosis_tile-art-batch-1.png", 32, 15, 8);
@@ -30,14 +36,21 @@ public class Display {
 		UI.setDivider(0.15);
 		BufferedImage b = new BufferedImage(1024, 576, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = b.createGraphics();
-		updateDisplay(map, ent, play, g);
+		updateDisplay(g);
 		while (true){
 			UI.sleep(100);
 			g.fillRect(0, 0, b.getWidth(), b.getHeight());
-			updateDisplay(map, ent, play, g);
+			updateDisplay(g);
 			UI.drawImage(b, 0, 0);
 		}
 	}
+	
+	public void updateLevel(Tile[][] map, ArrayList<VarBlock> ent, Player[] play){
+		this.map = map;
+		this.ent = ent;
+		this.play = play;
+	}
+	
 	
 	private BufferedImage[] loadSpriteSheet(String filename, int imgsize, int rows, int cols){
 		BufferedImage sheet = null;
@@ -66,7 +79,7 @@ public class Display {
 		return sprites;
 	}
 	
-	private void updateDisplay(Tile[][] map, ArrayList<VarBlock> ent, Player[] play, Graphics2D g){
+	private void updateDisplay( Graphics2D g){
 		// get window size
 		double w = UI.getCanvasWidth();
 		double h = UI.getCanvasHeight();
@@ -108,7 +121,7 @@ public class Display {
 //				UI.fillRect(x*tileWidth, y*tileHeight, tileWidth, tileHeight);
 //				UI.drawImage(box, x*tileWidth+tileWidth*0.05, y*tileHeight+tileHeight*0.05, tileWidth*0.9, tileHeight*0.9);
 				g.drawImage(box, (int) (x*tileWidth+tileWidth*0.05), (int) (y*tileHeight+tileHeight*0.05), (int) (tileWidth*0.9), (int)(tileHeight*0.9), UI.theUI.canvas);
-				UI.println(g);
+//				UI.println(g);
 //				UI.println(UI.theUI.canvas);
 				switch(e.getName()){
 				case 'X': g.drawImage(numbers[1], (int) (x*tileWidth+tileWidth*0.05), (int) (y*tileHeight+tileHeight*0.05), (int) (tileWidth*0.9), (int)(tileHeight*0.9), UI.theUI.canvas); break;

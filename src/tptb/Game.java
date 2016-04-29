@@ -27,11 +27,13 @@ public class Game implements UIKeyListener{
 	
 	private ArrayList<VarBlock> onBoard;
 	private Player[] players;
-	private String board1 = "Board1";
+	private ArrayList<String> boards;
 	private String[] exprs;
 	ExpressionHandler verify;
 	private JTextArea textArea;
-	
+	private int level;
+	private int maxLevel = 2;
+	private Display display;
 	//----------------------------------------------
 	//Constructor
 	//----------------------------------------------
@@ -39,13 +41,30 @@ public class Game implements UIKeyListener{
 	public Game(){
 		
 		UI.setKeyListener(this);
-		new BoardParser(board1, this);
+		boards = new ArrayList<String>();
+		for(int i = 1; i <= maxLevel; i++){
+			boards.add("board"+i);
+			System.out.println(boards.get(i-1));
+		}
+		new BoardParser(boards.get(level), this);
 		verify = new ExpressionHandler(this);
 		setupTextArea();
 		UI.println(joinExpressions());
-		new Display(board, onBoard, players);
+		display = new Display(board, onBoard, players);
 	}
 	
+	//----------------------------------------------
+	//Setup of a level
+	//----------------------------------------------
+	
+	public void setupLevel(){
+
+		new BoardParser(boards.get(level), this);
+		verify = new ExpressionHandler(this);
+		setupTextArea();
+		UI.println(joinExpressions());
+		display.updateLevel(board, onBoard, players);
+	}
 	//----------------------------------------------
 	//Main
 	//----------------------------------------------
@@ -135,6 +154,10 @@ public class Game implements UIKeyListener{
 		}	
 		if(verify.evaluateExpression()){
 			UI.println("CORRECT!");
+			if(level < maxLevel){
+				level++;
+				setupLevel();
+			}
 		}
 	}
 	
@@ -177,6 +200,7 @@ public class Game implements UIKeyListener{
 		textArea.setBackground(Color.BLACK);
 		Font font = new Font("Verdana", Font.BOLD, 14);
 		textArea.setFont(font);
+		textArea.setEditable(false);
 	}
 	
 }
