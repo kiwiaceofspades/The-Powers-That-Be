@@ -5,15 +5,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Parser {
 	
 	public static Tile[][] parseBoard(String boardName){
-		Tile[][] tiles;
+		Tile[][] tiles  = new Tile[0][0];
 		try {
 			Scanner sc = new Scanner(new File(boardName));
 			int width = sc.nextInt();
 			int height = sc.nextInt();
+			tiles = new Tile[width][height];
 			sc.nextLine(); 
 			for(int y = 0; y < height; y++){
 				if(!sc.hasNext()){
@@ -36,7 +38,7 @@ public class Parser {
 			}
 			sc.close();
 		} catch (FileNotFoundException e) {
-			System.out.println("No such file");
+			System.out.println("No such file" + e);
 		}
 		
 		return tiles;
@@ -65,7 +67,7 @@ public class Parser {
 			}
 			sc.close();
 		} catch (FileNotFoundException e) {
-			System.out.println("No such file");
+			System.out.println("No such file" + e);
 		}
 		
 		return players;
@@ -86,8 +88,27 @@ public class Parser {
 			}
 			sc.close();
 		} catch (FileNotFoundException e) {
-			System.out.println("No such file");
+			System.out.println("No such file" + e);
 		}
 		return varBlocks;
+	}
+	
+	public static String[] parseEquation(String boardName){
+		String[] equation = new String[2];
+		try {
+			Scanner sc = new Scanner(new File(boardName));
+			while(sc.hasNext()){
+				String next = sc.next();
+				if(next.equals("eq")){
+					StringTokenizer st = new StringTokenizer("=");
+					equation[0] = st.nextToken();
+					equation[1] = st.nextToken();
+				}
+			}
+			
+		} catch(FileNotFoundException e){
+			System.out.println("No such file" + e);
+		}
+		return equation;
 	}
 }
