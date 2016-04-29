@@ -3,30 +3,35 @@ package tptb;
 public class Tile {
 	private Loc location;
 	private final boolean moveable;
+	private final Integer value;
 	
 	public Tile(int x, int y){
-		this(x, y, true);
+		this.location = new Loc(x, y);
+		this.moveable = true;
+		this.value = null;
 	}
 	
 	public Tile(int x, int y, boolean moveable){
-		this(new Loc(x, y), moveable);
-	}
-	
-	public Tile(Loc location){
-		this(location, true);
-	}
-	
-	public Tile(Loc location, boolean moveable){
-		this.location = location;
+		this.location = new Loc(x, y);
 		this.moveable = moveable;
+		this.value = null;
+	}
+	public Tile(int x, int y, int value){
+		this.location = new Loc(x, y);
+		this.moveable = true;
+		this.value = value;
 	}
 	
 	public Loc getLoc(){
-		return location.clone();
+		return this.location.clone();
 	}
 	
-	public boolean moveable(){
-		return moveable;
+	public boolean isMoveable(){
+		return this.moveable;
+	}
+	
+	public Integer getValue(){
+		return this.value;
 	}
 	
 }
