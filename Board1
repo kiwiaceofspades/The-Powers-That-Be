@@ -16,4 +16,4 @@ vb 3 4 z
 vb 10 2 a
 vb 10 3 b
 vb 10 4 c
-eq x+x=y
+eq x + x = y

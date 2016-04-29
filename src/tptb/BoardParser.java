@@ -47,8 +47,8 @@ public class BoardParser {
 		String[] equation = new String[2];
 		String next = sc.nextLine();
 		StringTokenizer st = new StringTokenizer(next, "=");
-		equation[0] = st.nextToken();
-		equation[1] = st.nextToken();
+		equation[0] = st.nextToken().toUpperCase();
+		equation[1] = st.nextToken().toUpperCase();
 		return equation;
 		
 	}

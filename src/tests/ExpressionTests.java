@@ -25,23 +25,42 @@ public class ExpressionTests {
 	}
 	
 	
+	public Double evaluate(String s){
+		String arg = Prefixer.infixToPrefixConvert(s, true);
+		arg = ExpressionHandler.subValues(arg, getMap());
+		return PrefixEvaluator.evaluate(arg);
+	}
+	
 		
 	@Test
-	public void test() {
-		String arg = Prefixer.infixToPrefixConvert("Y * Y + X", true);
-		System.out.println(arg);
-		arg = ExpressionHandler.removeBrackets(arg);
-		System.out.println(arg);
-		arg = ExpressionHandler.subValues(arg, getMap());
-		System.out.println(arg);
-		double ans = PrefixEvaluator.evaluate(new Scanner(arg));
-		
-		System.out.println(ans);
-		
-		assertTrue(ans == 0);
-		
-		
-		
+	public void testMultiply() {	
+		assertTrue(evaluate("X * Y") == 6);
 	}
-
+	
+	@Test
+	public void testDivision() {	
+		assertTrue(evaluate("Z / X") == 2);
+	}
+	
+	@Test
+	public void testAddition() {	
+		assertTrue(evaluate("X + X") == 4);
+	}
+	
+	@Test
+	public void testSubtraction() {	
+		assertTrue(evaluate("X - X") == 0);
+	}
+	
+	@Test
+	public void testBrackets() {	
+		System.out.println(evaluate("Z * ( X - Y )"));
+		assertTrue(evaluate("Z * ( X - Y )") == -4);
+	}
+	
+	@Test
+	public void testExponents() {
+		assertTrue(evaluate("Y ^ X") == 9);
+	}
+	
 }

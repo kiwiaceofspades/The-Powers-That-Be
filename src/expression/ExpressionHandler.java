@@ -32,14 +32,15 @@ public class ExpressionHandler {
 		String[] subExpr = new String[prefix.length];
 		
 		for(int i = 0; i < prefix.length; i++){
-			subExpr[i] = removeBrackets(subValues(prefix[i], map));
+			subExpr[i] = subValues(prefix[i], map);
 		}
 		
-		Double[] vals = new Double[subExpr.length+1];
+		Double[] vals = new Double[subExpr.length];
 		
-		for(int i = 0; i <= subExpr.length; i++){
+		for(int i = 0; i < subExpr.length; i++){
 			try{
-				vals[i] = PrefixEvaluator.evaluate(new Scanner(subExpr[i]));
+				
+				vals[i] = PrefixEvaluator.evaluate(subExpr[i]);
 			} catch(Exception e){
 				//UI.println("Need more variables");
 			}
@@ -52,6 +53,7 @@ public class ExpressionHandler {
 				
 		for(Map.Entry<VarBlock, Integer> m : map.entrySet()){
 			//NOTE: If the value is >9 it will be a value of its first digit.
+			System.out.println("Map ENtry: " + m.getKey().getName() + ", " + m.getValue());
 			prefix = prefix.replace(m.getKey().getName(), 
 					m.getValue().toString().toCharArray()[0]);
 		}
@@ -74,7 +76,7 @@ public class ExpressionHandler {
 			if(val != null && val >= 0)
 				map.put(vb, val);
 		}
-		
+		System.out.println();
 		return map;
 	}
 }
