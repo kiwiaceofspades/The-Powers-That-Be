@@ -63,9 +63,7 @@ public class Loc implements Cloneable{
 		return true;
 	}	
 	
-	@Override
-	protected Object clone() throws CloneNotSupportedException {
-		// TODO Auto-generated method stub
+	public Loc clone() {
 		return new Loc(this.x, this.y);
 	}
 }
