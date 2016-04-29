@@ -1,5 +1,6 @@
 package display;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import ecs100.*;
@@ -12,6 +13,8 @@ public class Display {
 	
 	
 	
+	
+	
 	public Display(Tile[][] map, ArrayList<Entity> ent){
 		updateDisplay(map, ent);
 	}
@@ -20,28 +23,40 @@ public class Display {
 		for(int x = 0; x < map.length; x++){
 			for(int y = 0; y < map[x].length; y++){
 				
+				double tileWidth = GAME_SPACE_WIDTH/map.length;
+				double tileHeight = GAME_SPACE_HEIGHT/map[x].length;
 				
+				drawTile(map[x][y], x, y, tileWidth, tileHeight);
 				
-				drawTile(map, x, y);
-				
-				drawEntity(ent, x, y);
+				drawEntity(ent, x, y, tileWidth, tileHeight);
 			}
 		}
 	}
 	
-	private void drawEntity(ArrayList<Entity> ent, int x, int y){		
+	private void drawEntity(ArrayList<Entity> ent, int x, int y, double tileWidth, double tileHeight){		
 		for(Entity e : ent){
 			if(e.getLocation().equals(new Loc(x, y))){
+				//TODO draw entity
 				
+				
+				if(e instanceof Player){
+					UI.setColor(((Player) e).getCol());
+				}
+				
+				UI.fillRect(x*tileWidth, y*tileHeight, tileWidth, tileHeight);
+				return;
 			}
 		}
 		
 	}
 	
-	private void drawTile(Tile[][] map, int x, int y){
-		double tileWidth = GAME_SPACE_WIDTH/map.length;
-		double tileHeight = GAME_SPACE_HEIGHT/map[x].length;
+	private void drawTile(Tile tile, int x, int y, double tileWidth, double tileHeight){
 		
+		UI.setColor(Color.BLACK);
+			
+		//TODO draw tile
 		UI.drawRect(x*tileWidth, y*tileHeight, tileWidth, tileHeight);
+		
+		
 	}
 }
