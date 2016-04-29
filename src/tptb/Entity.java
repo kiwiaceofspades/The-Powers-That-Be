@@ -2,13 +2,13 @@ package tptb;
 
 public abstract class Entity {
 	
-	private Location loc;
+	private Loc loc;
 	
-	public Entity(Location loc){
+	public Entity(Loc loc){
 		this.loc = loc;
 	}
 	
-	public Location getLocation(){
+	public Loc getLocation(){
 		
 		return loc;
 	}

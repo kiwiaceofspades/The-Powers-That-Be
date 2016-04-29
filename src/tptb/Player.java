@@ -7,7 +7,7 @@ public class Player extends Entity{
 	private String name;
 	private Color col;
 	
-	public Player(Location loc, String name, Color col){
+	public Player(Loc loc, String name, Color col){
 		super(loc);
 		this.name = name;
 		this.col = col;
@@ -17,7 +17,8 @@ public class Player extends Entity{
 	
 	public String getName(){return name;}
 	
-	public boolean move(){
+	public boolean move(Game.Direction dir){
+		
 		return false;
 	}
 }
