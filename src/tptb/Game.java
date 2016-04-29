@@ -14,13 +14,14 @@ public class Game implements UIKeyListener{
 	
 	private Tile board[][];
 	
-	private ArrayList<Entity> onBoard;
+	private ArrayList<VarBlock> onBoard;
+	private Player[] players = new Player[2];
 	
 	public Game(){
 		
 		UI.setKeyListener(this);
 		Parser.parseBoard("Board1");
-		Display d = new Display(board, onBoard);
+		Display d = new Display(board, onBoard, players);
 		
 	}
 	
@@ -33,50 +34,42 @@ public class Game implements UIKeyListener{
 	}
 	
 	//----------------------------------------------
-	//Input Handler
+	//Getters and Setters
 	//----------------------------------------------
-	private String[] getPlayerNames(){
-		
-		String[] players = new String[2];
-		int i = 0;
-		for(Entity e : onBoard){
-			if(e instanceof Player){
-				players[i++] = ((Player) e).getName();
-			}
-			if(i>1)
-				break;
-		}
-		
+	
+	public ArrayList<VarBlock> getVarBlocks(){
+		return onBoard;
+	}
+	
+	public Player[] getPlayers(){
 		return players;
 	}
 	
-	public Player getPlayerByName(String name){
-		for(Entity e: onBoard){
-			if(e instanceof Player &&
-					((Player)e).getName().equals(name)){
-				return (Player)e;
-			}
-		}
-		return null;
+	public Tile getTileAt(Loc loc){
+		return board[loc.getX()][loc.getY()];
 	}
+	
+	//----------------------------------------------
+	//Input Handler
+	//----------------------------------------------
+	
 
 	@Override
 	public void keyPerformed(String key){
-		String[] player = getPlayerNames();
 		
-		if(player.length != 2)
+		if(players.length != 2)
 			System.out.println("There is not two players");
 		
 		switch(key){
-			case "w": 		getPlayerByName(player[0]).move(Direction.Up);
-			case "s": 		getPlayerByName(player[0]).move(Direction.Down);
-			case "a": 		getPlayerByName(player[0]).move(Direction.Left);
-			case "d": 		getPlayerByName(player[0]).move(Direction.Right);
+			case "w": 		players[0].move(Direction.Up);
+			case "s": 		players[0].move(Direction.Down);
+			case "a": 		players[0].move(Direction.Left);
+			case "d": 		players[0].move(Direction.Right);
 			
-			case "Up": 		getPlayerByName(player[1]).move(Direction.Up);
-			case "Down": 	getPlayerByName(player[1]).move(Direction.Down);
-			case "Left": 	getPlayerByName(player[1]).move(Direction.Left);
-			case "Right": 	getPlayerByName(player[1]).move(Direction.Right);
+			case "Up": 		players[1].move(Direction.Up);
+			case "Down": 	players[1].move(Direction.Down);
+			case "Left": 	players[1].move(Direction.Left);
+			case "Right": 	players[1].move(Direction.Right);
 			
 		}
 		

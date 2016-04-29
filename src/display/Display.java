@@ -15,7 +15,8 @@ public class Display {
 	
 	
 	
-	public Display(Tile[][] map, ArrayList<Entity> ent){
+	public Display(Tile[][] map, ArrayList<VarBlock> ent, Player[] play){
+		//TODO Handle ent changes and players
 		updateDisplay(map, ent);
 	}
 	
