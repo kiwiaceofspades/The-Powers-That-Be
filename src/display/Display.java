@@ -98,10 +98,10 @@ public class Display {
 		double aspectRatio = (double)map.length/(double)map[0].length;
 		double tilesize;
 		if((w/h)<aspectRatio){//if the draw area is wider than he board
-			tilesize = (double)w/map.length;
+			tilesize = Math.floor((double)w/(double)map.length);
 		}
 		else {//if the draw area is taller than the board
-			tilesize = (double)h/map[0].length;
+			tilesize = Math.floor((double)h/(double)map[0].length);
 		}
 		if(map == null || ent == null){
 			return;
