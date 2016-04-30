@@ -33,7 +33,7 @@ public class Game implements UIKeyListener, UIButtonListener{
 	ExpressionHandler verify;
 	private JTextArea textArea;
 	private int level;
-	private int maxLevel = 2;
+	private int maxLevel = 3;
 	private Display display;
 	//----------------------------------------------
 	//Constructor
@@ -44,7 +44,7 @@ public class Game implements UIKeyListener, UIButtonListener{
 		MusicBox.LoadMusic();
 		MusicBox.play();
 		
-		level = 1;
+		level = 3;
 		UI.setKeyListener(this);
 		boards = new ArrayList<String>();
 		for(int i = 1; i <= maxLevel+1; i++){
