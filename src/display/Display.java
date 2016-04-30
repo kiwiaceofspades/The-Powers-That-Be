@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.JComponent;
+import javax.swing.JSplitPane;
 
 import ecs100.*;
 import tptb.*;
@@ -28,8 +30,9 @@ public class Display {
 		this.map = map;
 		this.ent = ent;
 		this.play = play;
-		UI.getFrame().setResizable(false);
-		UI.setWindowSize(1024, 576 );
+		JComponent jcp = (JComponent)UI.theUI.canvas;
+		JSplitPane jsp = (JSplitPane) jcp.getParent().getParent().getParent();
+		jsp.setResizeWeight(1);		UI.setWindowSize(1024, 576 );
 		tiles = loadSpriteSheet("assets/hyptosis_tile-art-batch-1.png", 32, 15, 8);
 		numbers = loadSpriteSheet("assets/tiles.png", 64, 10, 2);
 		box = loadSpriteSheet("assets/RTS_Crate.png", 512, 1,1)[0];
@@ -37,12 +40,14 @@ public class Display {
 	}
 	
 	public void runDisplay(){
-		BufferedImage b = new BufferedImage(1024, 576, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage b = new BufferedImage(1024, 1000, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = b.createGraphics();
 		updateDisplay(g);
 		Runnable task2 = () -> { 
 			while (true){
 				UI.sleep(100);
+
+				g.setColor(Color.BLACK);
 				g.fillRect(0, 0, b.getWidth(), b.getHeight());
 				updateDisplay(g);
 				UI.drawImage(b, 0, 0);
