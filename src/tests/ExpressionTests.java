@@ -19,6 +19,8 @@ public class ExpressionTests {
 		map.put(new VarBlock(new Loc(0, 0), 'X'), 2);
 		map.put(new VarBlock(new Loc(0, 0), 'Y'), 3);
 		map.put(new VarBlock(new Loc(0, 0), 'Z'), 4);
+		map.put(new VarBlock(new Loc(0, 0), 'A'), 5);
+		map.put(new VarBlock(new Loc(0, 0), 'B'), 9);
 		
 		
 		return map;
@@ -54,7 +56,6 @@ public class ExpressionTests {
 	
 	@Test
 	public void testBrackets() {	
-		System.out.println(evaluate("Z * ( X - Y )"));
 		assertTrue(evaluate("Z * ( X - Y )") == -4);
 	}
 	
@@ -66,6 +67,11 @@ public class ExpressionTests {
 	@Test
 	public void bracketedExponent(){
 		assertTrue(evaluate("X ^ ( Z - Y )") == 2);
+	}
+	
+	@Test
+	public void testcase(){
+		assertTrue(evaluate(" ( Y ^ A ) / B") == 27);
 	}
 	
 }

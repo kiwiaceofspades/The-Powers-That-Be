@@ -53,7 +53,6 @@ public class ExpressionHandler {
 				
 		for(Map.Entry<VarBlock, Integer> m : map.entrySet()){
 			//NOTE: If the value is >9 it will be a value of its first digit.
-			System.out.println("Map Entry: " + m.getKey().getName() + ", " + m.getValue());
 			prefix = prefix.replace(m.getKey().getName(), 
 					m.getValue().toString().toCharArray()[0]);
 		}

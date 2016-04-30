@@ -37,6 +37,8 @@ public class Prefixer {
 				result = left * right;
 			}else if (operator.equals("/")){
 				result = left / right;
+			}else if (operator.equals("^")){
+				result = (int) Math.pow(left, right);
 			}
 			return "" + result;
 			
@@ -50,6 +52,8 @@ public class Prefixer {
 			return 1;
 		else if (s.equals("/") || s.equals("*"))
 			return 2;
+		else if (s.equals("^"))
+			return 3;
 		else
 			return 0;
 	}
