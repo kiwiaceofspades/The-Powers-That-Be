@@ -132,7 +132,6 @@ public class Display {
 		
 		for(VarBlock e : ent){
 			if(e.getLocation().equals(new Loc(x, y))){
-				//TODO draw entity
 					UI.setColor(Color.RED);
 				
 //				UI.fillRect(x*tileWidth, y*tileHeight, tileWidth, tileHeight);
@@ -189,7 +188,6 @@ public class Display {
 				g.drawImage(tiles[8*(6+tile.hashCode()%2) +2+ tile.hashCode()%5], (int) (x*tileWidth), (int) (y*tileWidth), (int)tileWidth, (int)tileHeight, null);
 			}
 			else{
-				//TODO draw tile
 //				UI.drawRect(x*tileWidth, y*tileHeight, tileWidth, tileHeight);
 //				UI.drawImage(tiles[0], x*tileWidth, y*tileWidth, tileWidth, tileHeight);
 				g.drawImage(tiles[0], (int) (x*tileWidth), (int) (y*tileWidth), (int)tileWidth, (int)tileHeight, null);

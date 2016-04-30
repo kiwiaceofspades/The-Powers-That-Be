@@ -46,6 +46,10 @@ public class Game implements UIKeyListener{
 		level = 0;
 		UI.setKeyListener(this);
 		boards = new ArrayList<String>();
+		/* fills the array list for boards based on the number of boards
+		 * Use maxLevel +1 because board names start from name, however level
+		 * starts from 0
+		 */
 		for(int i = 1; i <= maxLevel+1; i++){
 			boards.add("Board"+i);
 			System.out.println(boards.get(i-1));
@@ -53,11 +57,14 @@ public class Game implements UIKeyListener{
 		new BoardParser(boards.get(level), this);
 		verify = new ExpressionHandler(this);
 		setupTextArea();
-		//UI.println(joinExpressions());
+		//Prints the expressiong across three lines
+		
 		UI.println(exprs[0]);
 		UI.println("=");
 		UI.println(exprs[1]);
 		display = new Display(board, onBoard, players);
+		
+		//adds control buttons
 		UI.addButton("Reset", () -> resetLevel());
 		UI.addButton("Vol up", () -> MusicBox.volUp());
 		UI.addButton("Vol Down", () -> MusicBox.volDown());
@@ -66,7 +73,7 @@ public class Game implements UIKeyListener{
 	}
 	
 	//----------------------------------------------
-	//Setup of a level
+	//Setup and reset of a level
 	//----------------------------------------------
 	
 	public void setupLevel(){
@@ -94,6 +101,9 @@ public class Game implements UIKeyListener{
 		new Game();
 	}
 	
+	/*
+	 * Not used
+	 */
 	public String joinExpressions(){
 		return exprs[0] + " = " + exprs[1];
 	}
@@ -214,6 +224,11 @@ public class Game implements UIKeyListener{
 			return null;
 		}
 	}
+	
+
+	//----------------------------------------------
+	//Text Area control
+	//----------------------------------------------
 	
 	private void setupTextArea(){
 		JComponent jcp = (JComponent)UI.theUI.canvas;
