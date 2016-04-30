@@ -40,29 +40,29 @@ public class MusicBox implements LineListener {
 	
 	
 	public static void play(){
-		System.out.println("playing?");
+		//System.out.println("playing?");
 		try {
 			clip = AudioSystem.getClip();
 			clip.close();
 			clip.stop();
 			clip.addLineListener(musicbox);
-			System.out.println("try");
+			//System.out.println("try");
 			AudioFileFormat frm = audioFormats.get(currentSong);
 			clip.open(frm.getFormat(), audio.get(currentSong), 0, frm.getByteLength());
-			System.out.println("open");
+			//System.out.println("open");
 			clip.start();
-			System.out.println("start");
+			//System.out.println("start");
 		} catch (LineUnavailableException e) {
 			System.out.println("not working");
 			e.printStackTrace();
 		}
-		System.out.println("Now Playing[" +currentSong + "]: " + audioFiles.get(currentSong).getName());
+		//System.out.println("Now Playing[" +currentSong + "]: " + audioFiles.get(currentSong).getName());
 	}
 	
 	public static void next(){
 		currentSong++;
 		if (currentSong==audio.size()) { currentSong =0; }
-		System.out.println("New Song: " + currentSong);
+		//System.out.println("New Song: " + currentSong);
 	}
 	
 	public static void stop(){
@@ -107,13 +107,13 @@ public class MusicBox implements LineListener {
 	public void update(LineEvent event) {
 		// TODO Auto-generated method stub
 		if (event.getType() == CLOSE){
-			System.out.println("CLOSE");
+			//System.out.println("CLOSE");
 		}
 		if (event.getType() == OPEN){
-			System.out.println("OPEN");
+			//System.out.println("OPEN");
 		}
 		if (event.getType() == START){
-			System.out.println("START");
+			//System.out.println("START");
 		}
 		if (event.getType() == STOP){
 			System.out.println("STOP");

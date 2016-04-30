@@ -44,10 +44,10 @@ public class Game implements UIKeyListener, UIButtonListener{
 		MusicBox.LoadMusic();
 		MusicBox.play();
 		
-		level = 0;
+		level = 1;
 		UI.setKeyListener(this);
 		boards = new ArrayList<String>();
-		for(int i = 1; i <= maxLevel; i++){
+		for(int i = 1; i <= maxLevel+1; i++){
 			boards.add("Board"+i);
 			System.out.println(boards.get(i-1));
 		}
