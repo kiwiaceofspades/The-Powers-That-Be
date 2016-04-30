@@ -33,7 +33,7 @@ public class Game implements UIKeyListener{
 	ExpressionHandler verify;
 	private JTextArea textArea;
 	private int level;
-	private int maxLevel = 3;
+	private int maxLevel = 4;
 	private Display display;
 	//----------------------------------------------
 	//Constructor
