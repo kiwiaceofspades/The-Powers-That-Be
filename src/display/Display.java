@@ -24,6 +24,7 @@ public class Display {
 	private Tile[][]map;
 	private ArrayList<VarBlock> ent;
 	private Player[] play;
+	private Thread runner;
 	
 	
 	public Display(Tile[][] map, ArrayList<VarBlock> ent, Player[] play){
@@ -53,13 +54,18 @@ public class Display {
 				UI.drawImage(b, 0, 0);
 			}
 			};
-			new Thread(task2).run();
+			runner = new Thread(task2);
+			runner.run();
 	}
 	
 	public void updateLevel(Tile[][] map, ArrayList<VarBlock> ent, Player[] play){
 		this.map = map;
 		this.ent = ent;
 		this.play = play;
+	}
+	
+	public void showTrain(){
+		//TODO: implement the train
 	}
 	
 	

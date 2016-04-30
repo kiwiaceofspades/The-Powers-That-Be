@@ -179,6 +179,9 @@ public class Game implements UIKeyListener{
 				level++;
 				setupLevel();
 			}
+			else if( level == maxLevel){
+				display.showTrain();
+			}
 		}
 	}
 	
