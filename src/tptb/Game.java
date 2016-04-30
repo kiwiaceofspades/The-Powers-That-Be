@@ -16,10 +16,11 @@ import javax.swing.JViewport;
 
 import display.Display;
 import ecs100.UI;
+import ecs100.UIButtonListener;
 import ecs100.UIKeyListener;
 import expression.ExpressionHandler;
 
-public class Game implements UIKeyListener{
+public class Game implements UIKeyListener, UIButtonListener{
 	
 	public enum Direction { Up, Down, Left, Right}
 	
@@ -39,11 +40,11 @@ public class Game implements UIKeyListener{
 	//----------------------------------------------
 	
 	public Game(){
-		
+		level = 0;
 		UI.setKeyListener(this);
 		boards = new ArrayList<String>();
 		for(int i = 1; i <= maxLevel; i++){
-			boards.add("board"+i);
+			boards.add("Board"+i);
 			System.out.println(boards.get(i-1));
 		}
 		new BoardParser(boards.get(level), this);
@@ -51,6 +52,8 @@ public class Game implements UIKeyListener{
 		setupTextArea();
 		UI.println(joinExpressions());
 		display = new Display(board, onBoard, players);
+		UI.addButton("Reset", this);
+		display.runDisplay();
 	}
 	
 	//----------------------------------------------
@@ -58,7 +61,6 @@ public class Game implements UIKeyListener{
 	//----------------------------------------------
 	
 	public void setupLevel(){
-
 		new BoardParser(boards.get(level), this);
 		verify = new ExpressionHandler(this);
 		setupTextArea();
@@ -201,6 +203,12 @@ public class Game implements UIKeyListener{
 		Font font = new Font("Verdana", Font.BOLD, 14);
 		textArea.setFont(font);
 		textArea.setEditable(false);
+	}
+
+	@Override
+	public void buttonPerformed() {
+		setupLevel();
+		
 	}
 	
 }

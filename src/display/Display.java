@@ -21,7 +21,7 @@ public class Display {
 	
 	private Tile[][]map;
 	private ArrayList<VarBlock> ent;
-	Player[] play;
+	private Player[] play;
 	
 	
 	public Display(Tile[][] map, ArrayList<VarBlock> ent, Player[] play){
@@ -34,15 +34,21 @@ public class Display {
 		numbers = loadSpriteSheet("assets/tiles.png", 64, 10, 2);
 		box = loadSpriteSheet("assets/RTS_Crate.png", 512, 1,1)[0];
 		UI.setDivider(0.15);
+	}
+	
+	public void runDisplay(){
 		BufferedImage b = new BufferedImage(1024, 576, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = b.createGraphics();
 		updateDisplay(g);
-		while (true){
-			UI.sleep(100);
-			g.fillRect(0, 0, b.getWidth(), b.getHeight());
-			updateDisplay(g);
-			UI.drawImage(b, 0, 0);
-		}
+		Runnable task2 = () -> { 
+			while (true){
+				UI.sleep(100);
+				g.fillRect(0, 0, b.getWidth(), b.getHeight());
+				updateDisplay(g);
+				UI.drawImage(b, 0, 0);
+			}
+			};
+			new Thread(task2).run();
 	}
 	
 	public void updateLevel(Tile[][] map, ArrayList<VarBlock> ent, Player[] play){
