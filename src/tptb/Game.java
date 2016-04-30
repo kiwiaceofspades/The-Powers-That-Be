@@ -44,7 +44,7 @@ public class Game implements UIKeyListener, UIButtonListener{
 		MusicBox.LoadMusic();
 		MusicBox.play();
 		
-		level = 3;
+		level = 0;
 		UI.setKeyListener(this);
 		boards = new ArrayList<String>();
 		for(int i = 1; i <= maxLevel+1; i++){
