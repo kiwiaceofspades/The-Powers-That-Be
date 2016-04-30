@@ -59,6 +59,9 @@ public class Game implements UIKeyListener{
 		UI.println(exprs[1]);
 		display = new Display(board, onBoard, players);
 		UI.addButton("Reset", () -> resetLevel());
+		UI.addButton("Vol up", () -> MusicBox.volUp());
+		UI.addButton("Vol Down", () -> MusicBox.volDown());
+		UI.addButton("Toggle Mute", () -> MusicBox.toggleMute());
 		display.runDisplay();
 	}
 	
