@@ -20,7 +20,7 @@ import ecs100.UIButtonListener;
 import ecs100.UIKeyListener;
 import expression.ExpressionHandler;
 
-public class Game implements UIKeyListener, UIButtonListener{
+public class Game implements UIKeyListener{
 	
 	public enum Direction { Up, Down, Left, Right}
 	
@@ -33,7 +33,7 @@ public class Game implements UIKeyListener, UIButtonListener{
 	ExpressionHandler verify;
 	private JTextArea textArea;
 	private int level;
-	private int maxLevel = 2;
+	private int maxLevel = 3;
 	private Display display;
 	//----------------------------------------------
 	//Constructor
@@ -44,7 +44,7 @@ public class Game implements UIKeyListener, UIButtonListener{
 		MusicBox.LoadMusic();
 		MusicBox.play();
 		
-		level = 1;
+		level = 3;
 		UI.setKeyListener(this);
 		boards = new ArrayList<String>();
 		for(int i = 1; i <= maxLevel+1; i++){
@@ -59,7 +59,7 @@ public class Game implements UIKeyListener, UIButtonListener{
 		UI.println("=");
 		UI.println(exprs[1]);
 		display = new Display(board, onBoard, players);
-		UI.addButton("Reset", this);
+		UI.addButton("Reset", () -> resetLevel());
 		display.runDisplay();
 	}
 	
@@ -222,10 +222,5 @@ public class Game implements UIKeyListener, UIButtonListener{
 		textArea.setEditable(false);
 	}
 
-	@Override
-	public void buttonPerformed() {
-		setupLevel();
-		
-	}
 	
 }
