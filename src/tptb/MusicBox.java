@@ -12,8 +12,12 @@ import javax.sound.sampled.AudioFileFormat.Type;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.BooleanControl;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.Control;
 import javax.sound.sampled.DataLine;
+import javax.sound.sampled.DataLine.Info;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineListener;
 import javax.sound.sampled.LineUnavailableException;
@@ -32,6 +36,9 @@ public class MusicBox implements LineListener {
 	private static List<File> audioFiles;
 	
 	private static Clip clip;
+	private static Control[] controls;
+	private static FloatControl volCtrl;
+	private static BooleanControl muteCtrl;
 	
 	private static int currentSong =0;
 	
@@ -39,25 +46,71 @@ public class MusicBox implements LineListener {
 	
 	private MusicBox(){}
 	
+	static {
+		try {
+			clip = AudioSystem.getClip();
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public static void play(){
 		//System.out.println("playing?");
 		try {
-			clip = AudioSystem.getClip();
+//			clip = AudioSystem.getClip();
 			clip.close();
 			clip.stop();
 			clip.addLineListener(musicbox);
-			//System.out.println("try");
+			// we have audio system, now load the music
 			AudioFileFormat frm = audioFormats.get(currentSong);
 			clip.open(frm.getFormat(), audio.get(currentSong), 0, frm.getByteLength());
-			//System.out.println("open");
+			// now start playing
 			clip.start();
-			//System.out.println("start");
+			setControls();
+			
+//			DataLine.Info info = new DataLine.Info(Clip.class, 
+//				    frm.getFormat());
+//			clip = (Clip) AudioSystem.getLine(info);
+//			clip.open(frm.getFormat(), audio.get(currentSong), 0, frm.getByteLength());
+//			clip.start();
+			
 		} catch (LineUnavailableException e) {
 			System.out.println("not working");
 			e.printStackTrace();
 		}
+		System.out.println("Now Playing: " + audioFiles.get(currentSong).getName().replaceFirst(".wav", "").replace('-', ' '));
 		UI.printMessage("Now Playing: " + audioFiles.get(currentSong).getName().replaceFirst(".wav", "").replace('-', ' '));
+	}
+	
+	private static void setControls(){
+		volCtrl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+		muteCtrl = (BooleanControl) clip.getControl(BooleanControl.Type.MUTE);
+	}
+	
+	public static boolean toggleMute(){
+		muteCtrl.setValue(!muteCtrl.getValue());
+		return muteCtrl.getValue();
+	}
+	
+	public static void volUp(){
+		volChange(1);
+	}
+	
+	public static void volDown(){
+		volChange(-1);
+	}
+	
+	private static void volChange(float delta){
+		float max = volCtrl.getMaximum();
+		float min = volCtrl.getMinimum();
+		float curr = volCtrl.getValue();
+		float change = curr + delta;
+//		System.out.printf("min%f max%f curr%f \ncha%f max%f min%f\n", max, min, curr, change, Math.max(min, change), Math.min(max, change));
+		change = Math.max(min, Math.min(max, change));
+		
+		volCtrl.shift(curr, change, 50);
 	}
 	
 	public static void next(){
