@@ -43,14 +43,17 @@ public class Game implements UIKeyListener, UIButtonListener{
 		level = 0;
 		UI.setKeyListener(this);
 		boards = new ArrayList<String>();
-		for(int i = 1; i <= maxLevel; i++){
+		for(int i = 1; i <= maxLevel+1; i++){
 			boards.add("Board"+i);
 			System.out.println(boards.get(i-1));
 		}
 		new BoardParser(boards.get(level), this);
 		verify = new ExpressionHandler(this);
 		setupTextArea();
-		UI.println(joinExpressions());
+		//UI.println(joinExpressions());
+		UI.println(exprs[0]);
+		UI.println("=");
+		UI.println(exprs[1]);
 		display = new Display(board, onBoard, players);
 		UI.addButton("Reset", this);
 		display.runDisplay();
@@ -64,8 +67,18 @@ public class Game implements UIKeyListener, UIButtonListener{
 		new BoardParser(boards.get(level), this);
 		verify = new ExpressionHandler(this);
 		setupTextArea();
-		UI.println(joinExpressions());
+		UI.println(exprs[0]);
+		UI.println("=");
+		UI.println(exprs[1]);
 		display.updateLevel(board, onBoard, players);
+	}
+	
+	private void resetLevel(){
+		new BoardParser(boards.get(level), this);
+		verify = new ExpressionHandler(this);
+		setupTextArea();
+		display.updateLevel(board, onBoard, players);
+		
 	}
 	//----------------------------------------------
 	//Main
@@ -207,7 +220,7 @@ public class Game implements UIKeyListener, UIButtonListener{
 
 	@Override
 	public void buttonPerformed() {
-		setupLevel();
+		resetLevel();
 		
 	}
 	
