@@ -43,6 +43,9 @@ public class MusicBox implements LineListener {
 	private static int currentSong =0;
 	
 	private static MusicBox musicbox = new MusicBox();
+	private static String currentlyPlayingSong;
+	private static String volumeString;
+	private static int volStringLength = 15;
 	
 	private MusicBox(){}
 	
@@ -80,8 +83,11 @@ public class MusicBox implements LineListener {
 			System.out.println("not working");
 			e.printStackTrace();
 		}
-		System.out.println("Now Playing: " + audioFiles.get(currentSong).getName().replaceFirst(".wav", "").replace('-', ' '));
-		UI.printMessage("Now Playing: " + audioFiles.get(currentSong).getName().replaceFirst(".wav", "").replace('-', ' '));
+		volChange(0);
+		currentlyPlayingSong = audioFiles.get(currentSong).getName().replaceFirst(".wav", "").replace('-', ' ');
+		currentlyPlayingSong += String.valueOf(new char[30 - currentlyPlayingSong.length()]).replace('\0', ' ');
+		System.out.println(String.format("Now Playing: %-30s %s",currentlyPlayingSong, volumeString));
+		UI.printMessage(String.format("Now Playing: %-30s %s",currentlyPlayingSong, volumeString));
 	}
 	
 	private static void setControls(){
@@ -111,6 +117,22 @@ public class MusicBox implements LineListener {
 		change = Math.max(min, Math.min(max, change));
 		
 		volCtrl.shift(curr, change, 50);
+		float range = max - min;
+//		float cpos = change - min; //?
+		range = Math.round(range/volStringLength);
+		int cpos = Math.round((change - min)/range);
+		String left = String.valueOf(new char[cpos]).replace('\0', '=');
+		String right = String.valueOf(new char[volStringLength-1-cpos]).replace('\0', '_');
+		
+		volumeString = String.format("|%s#%s|", left, right);
+		
+//		System.out.println(String.format("Now Playing: %-30s %s",currentlyPlayingSong, volumeString));
+		
+//		System.out.printf("%f %f\n", range, cpos);
+		
+		
+		System.out.println(String.format("Now Playing: %-30s %s",currentlyPlayingSong, volumeString));
+		UI.printMessage(String.format("Now Playing: %-30s %s",currentlyPlayingSong, volumeString));
 	}
 	
 	public static void next(){
