@@ -43,7 +43,7 @@ public class Game implements UIKeyListener{
 		
 		MusicBox.LoadMusic();
 		MusicBox.play();
-		level = 3;
+		level = 0;
 		UI.setKeyListener(this);
 		boards = new ArrayList<String>();
 		for(int i = 1; i <= maxLevel+1; i++){
@@ -174,7 +174,7 @@ public class Game implements UIKeyListener{
 			UI.println("CORRECT!");
 			if(level < maxLevel){
 				level++;
-				resetLevel();
+				setupLevel();
 			}
 		}
 	}
