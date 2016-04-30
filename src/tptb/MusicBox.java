@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.time.Clock;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFileFormat.Type;
@@ -56,12 +57,14 @@ public class MusicBox implements LineListener {
 			System.out.println("not working");
 			e.printStackTrace();
 		}
-		//System.out.println("Now Playing[" +currentSong + "]: " + audioFiles.get(currentSong).getName());
+		UI.printMessage("Now Playing: " + audioFiles.get(currentSong).getName().replaceFirst(".wav", "").replace('-', ' '));
 	}
 	
 	public static void next(){
-		currentSong++;
-		if (currentSong==audio.size()) { currentSong =0; }
+//		currentSong++;
+//		if (currentSong==audio.size()) { currentSong =0; }
+		currentSong = (int) Math.ceil(Math.random()*(7))-1;
+		
 		//System.out.println("New Song: " + currentSong);
 	}
 	
@@ -73,14 +76,12 @@ public class MusicBox implements LineListener {
 	public static void LoadMusic(){
 		
 		File d = new File("music");
-		System.err.println(d.isDirectory());
 		File[] files = d.listFiles( (dir, name) ->  name.toLowerCase().endsWith(".wav"));
 		audioFormats = new ArrayList<AudioFileFormat>(files.length);
 		audios = new ArrayList<AudioInputStream>(files.length);
 		audioFiles = new ArrayList<File>(files.length);
 		audio = new ArrayList<byte[]>(files.length);
 		
-		System.err.println(files.length);
 		for (int i=0; i<files.length; ++i){
 			try {
 				
@@ -116,9 +117,6 @@ public class MusicBox implements LineListener {
 			//System.out.println("START");
 		}
 		if (event.getType() == STOP){
-			System.out.println("STOP");
-			System.out.println(Clock.systemUTC().instant());
-//			if (!next) {next(); next = false;}
 			next();
 			play();
 		}
