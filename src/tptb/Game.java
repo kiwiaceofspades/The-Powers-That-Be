@@ -43,12 +43,7 @@ public class Game implements UIKeyListener{
 		
 		MusicBox.LoadMusic();
 		MusicBox.play();
-		
-<<<<<<< HEAD
 		level = 3;
-=======
-		level = 0;
->>>>>>> e837a230943864ee0c91230b76e88da508d07e56
 		UI.setKeyListener(this);
 		boards = new ArrayList<String>();
 		for(int i = 1; i <= maxLevel+1; i++){
