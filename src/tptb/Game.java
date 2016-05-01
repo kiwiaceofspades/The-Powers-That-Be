@@ -206,11 +206,11 @@ public class Game implements UIKeyListener{
 			UI.println("CORRECT!");
 			if(customMap){
 				display.showTrain();
-			} else if(level < maxLevel){
+			} else if(level < maxLevel-1){
 				level++;
 				current = boards[level];
 				setupLevel();
-			} else if( level == maxLevel){
+			} else if( level == maxLevel-1){
 				display.showTrain();
 			}
 		}
