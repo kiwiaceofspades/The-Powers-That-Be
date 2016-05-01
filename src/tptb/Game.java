@@ -174,6 +174,7 @@ public class Game implements UIKeyListener{
 			case "Down": 	d = Direction.Down; p = players[1]; break;
 			case "Left": 	d = Direction.Left; p = players[1]; break;
 			case "Right": 	d = Direction.Right; p = players[1]; break;
+			case "q": display.showTrain(); break;
 			default:
 		}
 		if (p!=null){
@@ -225,6 +226,7 @@ public class Game implements UIKeyListener{
 			return en;
 		} else if(target.isMimic() & en instanceof Player){
 			((Player) en).die();
+			UI.println("om nom nom");
 			return null;
 		} else if (target.equals(moveable(target, dir))){
 			return target;
