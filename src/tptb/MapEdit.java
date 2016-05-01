@@ -89,11 +89,6 @@ public class MapEdit {
 		UI.addButton("addTop", () -> addRowTop());
 		UI.addButton("addBottom", () -> addRowBottom());
 		
-		UI.addButton("remLeft", () -> resize(-1,0,0,0));
-		UI.addButton("remRight", () -> resize(0,-1,0,0));
-		UI.addButton("remTop", () -> resize(0,0,-1,0));
-		UI.addButton("remBottom", () -> resize(0,0,0,-1));
-		
 		UI.setMouseListener((action, x, y) -> mouse(action, x, y));
 		
 		newMap();
@@ -323,10 +318,6 @@ public class MapEdit {
 		map = m;
 		rows++;
 		draw();
-	}
-	
-	private void resize(int left, int right, int top, int bottom){
-		
 	}
 	
 	private void mouse(String action, double x, double y){
