@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -14,15 +15,15 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-import static tptb.MapEdit.MapTiles.*;
+import static tptb.MapEdit.MapTile.*;
 import ecs100.UI;
 
 public class MapEdit {
 	
-	protected enum MapTiles { n0, n1, n2, n3, n4, n5, n6, n7, n8, n9, w, f };
+	protected enum MapTile { n0, n1, n2, n3, n4, n5, n6, n7, n8, n9, w, f };
 	private enum editAction {tile, player, block, mimic}
 	
-	private MapTiles[][] map;
+	private MapTile[][] map;
 	private Loc[] players;
 	private List<VarBlock> entities = new ArrayList<VarBlock>();
 	private String equation;
@@ -83,10 +84,10 @@ public class MapEdit {
 		
 		UI.addTextField("Equation", (e) -> equation = e);
 		
-		UI.addButton("addLeft", () -> resize(1,0,0,0));
-		UI.addButton("addRight", () -> resize(0,1,0,0));
-		UI.addButton("addTop", () -> resize(0,0,1,0));
-		UI.addButton("addBottom", () -> resize(0,0,0,1));
+		UI.addButton("addLeft", () -> addColLeft());
+		UI.addButton("addRight", () -> addColRight());
+		UI.addButton("addTop", () -> addRowTop());
+		UI.addButton("addBottom", () -> addRowBottom());
 		
 		UI.addButton("remLeft", () -> resize(-1,0,0,0));
 		UI.addButton("remRight", () -> resize(0,-1,0,0));
@@ -174,7 +175,7 @@ public class MapEdit {
 		UI.println("new");
 		rows = 7;
 		cols = 7;
-		map = new MapTiles[cols][rows];
+		map = new MapTile[cols][rows];
 		for (int i=0; i<cols; ++i){
 			for (int j=0; j<rows; ++j){
 				map[i][j] = w;
@@ -203,7 +204,8 @@ public class MapEdit {
 		
 		
 		if (equation==null){
-			equation = UI.askString("Please Enter an equation (this may have happened if you hadn't pressed enter on the sidebar, then press enter");
+			UI.println("Please Enter an equation (this may have happened if you hadn't pressed enter on the sidebar, then press enter");
+			return;
 		}
 		if (chooser.showSaveDialog(UI.getFrame()) != JFileChooser.APPROVE_OPTION) return;
 		File file = chooser.getSelectedFile();
@@ -248,7 +250,7 @@ public class MapEdit {
 				out.write(String.format("%s %d %d %c\n",(v.isMimic()? "VB" : "vb") ,v.getLocation().getX(), v.getLocation().getY(), v.getName()));
 			}
 			
-			out.write("\n eq " + equation);
+			out.write("\neq " + equation);
 			
 			out.close();
 		} catch (IOException e) {
@@ -261,6 +263,68 @@ public class MapEdit {
 		UI.println("close");
 		map = null;
 	}
+	
+	private void addColLeft(){
+		MapTile[][] m = new MapTile[cols+1][rows];
+		for (int row=0; row<rows; row++){
+			for (int col=0; col<cols; col++){
+				m[col+1][row] = map[col][row];
+			}
+			m[0][row] = w;
+		}
+		map = m;
+		cols++;
+		for (Entity e: entities){
+			e.move(Game.Direction.Right);
+		}
+		if (players[0] != null) players[0].right();
+		if (players[1] != null) players[1].right();
+		
+		draw();
+	}
+	private void addColRight(){
+		MapTile[][] m = Arrays.copyOf(map, cols+1);
+		for (int j=0; j<cols; ++j){
+			m[j] = map[j];
+		}
+		m[cols] = new MapTile[rows];
+		for (int i=0; i<rows; ++i){
+			m[cols][i]= w;
+		}
+		map = m;
+		cols++;
+		draw();
+	}
+	
+	private void addRowTop(){
+		MapTile[][] m = new MapTile[cols][rows+1];
+		for (int col=0; col<cols; col++){
+			for (int row=0; row<rows; row++){
+				m[col][row+1] = map[col][row];
+			}
+			m[col][0] = w;
+		}
+		map = m;
+		rows++;
+		for (Entity e: entities){
+			e.move(Game.Direction.Down);
+		}
+		if (players[0] != null) players[0].down();
+		if (players[1] != null) players[1].down();
+		
+		draw();
+	}
+	private void addRowBottom(){
+		MapTile[][] m = new MapTile[cols][rows+1];
+		for (int col=0; col<cols; col++){
+			m[col] = Arrays.copyOf(map[col], rows+1);
+			m[col][rows] = w;
+		}
+		map = m;
+		rows++;
+		draw();
+	}
+	
 	private void resize(int left, int right, int top, int bottom){
 		
 	}
@@ -271,6 +335,7 @@ public class MapEdit {
 		int col = (int) x / tileSize;
 		int row = (int) y / tileSize;
 		if (col >= cols || row >= rows) return;
+//		System.out.println(col + " " + row);
 		boolean mimic = false;
 		switch (this.action){
 		case tile:
@@ -278,10 +343,10 @@ public class MapEdit {
 			int tile = map[col][row].ordinal();
 			tile ++;
 			try {
-				map[col][row] = MapTiles.values()[tile];
+				map[col][row] = MapTile.values()[tile];
 			} catch (IndexOutOfBoundsException e){
 				tile = 0;
-				map[col][row] = MapTiles.values()[tile];
+				map[col][row] = MapTile.values()[tile];
 			}
 			break;
 		case mimic:
