@@ -4,11 +4,13 @@ package tptb;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
@@ -82,7 +84,10 @@ public class MapEdit {
 			UI.println("Action: " + action);
 		});
 		
-		UI.addTextField("Equation", (e) -> equation = e);
+		UI.addTextField("Equation", (e) -> {
+			equation = e;
+			UI.printMessage(equation);
+		});
 		
 		UI.addButton("addLeft", () -> addColLeft());
 		UI.addButton("addRight", () -> addColRight());
@@ -188,6 +193,61 @@ public class MapEdit {
 	}
 	private void open(JFileChooser chooser){
 		UI.println("open");
+		if (chooser.showSaveDialog(UI.getFrame()) != JFileChooser.APPROVE_OPTION) return;
+		File file = chooser.getSelectedFile();
+		if (file==null) return;
+		try {
+			Scanner scan = new Scanner(file);
+			close();
+			cols = scan.nextInt();
+			rows = scan.nextInt();
+			scan.nextLine();
+			map = new MapTile[cols][rows];
+			entities.clear();
+			
+			for (int i=0;i<rows;++i){
+				String line = scan.nextLine();
+				for (int j=0;j<cols;++j){
+					switch (line.charAt(j)){
+					case '.': map[j][i] = w; break;
+					case ' ': map[j][i] = f; break;
+						default:
+							map[j][i] = MapTile.valueOf("n" + String.valueOf(line.charAt(j))); break;
+					}
+				}
+			}
+			int player = 0;
+			while (scan.hasNext()){
+				String type = scan.next();
+				switch (type){
+				case "player":
+					players[player] = new Loc(scan.nextInt(), scan.nextInt());
+					player++;
+					break;
+				case "vb":
+					entities.add(new VarBlock(new Loc(scan.nextInt(), scan.nextInt()), scan.next().charAt(0)));
+					break;
+				case "VB":
+					entities.add(new VarBlock(new Loc(scan.nextInt(), scan.nextInt()), scan.next().charAt(0), true));
+					break;
+				case "eq":
+					equation = scan.nextLine();
+					break;
+					default:
+						
+				}
+			}
+				
+			
+			
+			
+			scan.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		UI.printMessage(equation);
+		draw();
 		
 	}
 	private void save(JFileChooser chooser){
