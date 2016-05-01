@@ -10,6 +10,7 @@ public class Player extends Entity{
 	public Player(Loc loc, String name){
 		super(loc);
 		this.name = name;
+		alive = true;
 	}
 	
 	
