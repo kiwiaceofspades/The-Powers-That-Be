@@ -27,6 +27,8 @@ public class Display {
 	private Player[] play;
 	private Thread runner;
 	
+	private boolean running;
+	
 	
 	public Display(Tile[][] map, ArrayList<VarBlock> ent, Player[] play){
 		this.map = map;
@@ -46,8 +48,9 @@ public class Display {
 		BufferedImage b = new BufferedImage(1024, 1000, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = b.createGraphics();
 		updateDisplay(g);
+		running = true;
 		Runnable task2 = () -> { 
-			while (true){
+			while (running){
 				UI.sleep(100);
 
 				g.setColor(Color.BLACK);
@@ -55,9 +58,9 @@ public class Display {
 				updateDisplay(g);
 				UI.drawImage(b, 0, 0);
 			}
-			};
-			runner = new Thread(task2);
-			runner.run();
+		};
+		runner = new Thread(task2);
+		runner.run();
 	}
 	
 	public void updateLevel(Tile[][] map, ArrayList<VarBlock> ent, Player[] play){
@@ -68,11 +71,14 @@ public class Display {
 	
 	public void showTrain(){
 		//TODO: implement the train
+		running = false;
+		int delay = 1000;
 		while (true){
 			for (int i=0; i<4; ++i){
 				UI.clearGraphics();
 				UI.drawImage(train[i], 0, 0);
-				UI.sleep(100);
+				UI.sleep(delay);
+				if (delay > 80) delay *= 0.9;
 			}
 		}
 	}
