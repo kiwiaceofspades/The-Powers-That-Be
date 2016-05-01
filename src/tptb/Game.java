@@ -55,17 +55,18 @@ public class Game implements UIKeyListener{
 			System.out.println(boards.get(i-1));
 		}*/
 		loadBoards();
+		setupTextArea();
 		maxLevel = boards.length;
 		new BoardParser(boards[level], this);
 		verify = new ExpressionHandler(this);
-		setupTextArea();
+	
 		//Prints the expressiong across three lines
 		
 		UI.println(exprs[0]);
 		UI.println("=");
 		UI.println(exprs[1]);
 		display = new Display(board, onBoard, players);
-		
+		UI.getFrame().setTitle(boards[level].getName());
 		//adds control buttons
 		UI.addButton("Reset", () -> resetLevel());
 		UI.addButton("Vol up", () -> MusicBox.volUp());
@@ -79,9 +80,9 @@ public class Game implements UIKeyListener{
 	//----------------------------------------------
 	
 	public void setupLevel(){
+		UI.getFrame().setTitle(boards[level].getName());
 		new BoardParser(boards[level], this);
 		verify = new ExpressionHandler(this);
-		setupTextArea();
 		UI.println(exprs[0]);
 		UI.println("=");
 		UI.println(exprs[1]);
@@ -260,4 +261,5 @@ public class Game implements UIKeyListener{
 		File d = new File("boards");
 		this.boards = d.listFiles();
 	}
+	
 }
