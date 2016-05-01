@@ -146,7 +146,11 @@ public class Display {
 				
 //				UI.fillRect(x*tileWidth, y*tileHeight, tileWidth, tileHeight);
 //				UI.drawImage(box, x*tileWidth+tileWidth*0.05, y*tileHeight+tileHeight*0.05, tileWidth*0.9, tileHeight*0.9);
-				g.drawImage(box, (int) (x*tileWidth+tileWidth*0.05), (int) (y*tileHeight+tileHeight*0.05), (int) (tileWidth*0.9), (int)(tileHeight*0.9), UI.theUI.canvas);
+				if(e.isMimic()){
+					g.drawImage(box, (int) (x*tileWidth+tileWidth*0.05), (int) (y*tileHeight+tileHeight*0.05), (int) (tileWidth*0.9), (int)(tileHeight*0.9), UI.theUI.canvas);
+				} else{
+					g.drawImage(box, (int) (x*tileWidth+tileWidth*0.05), (int) (y*tileHeight+tileHeight*0.05), (int) (tileWidth*0.9), (int)(tileHeight*0.9), UI.theUI.canvas);
+				}
 //				UI.println(g);
 //				UI.println(UI.theUI.canvas);
 				switch(e.getName()){
@@ -184,7 +188,9 @@ public class Display {
 //				
 //				UI.fillOval(x*tileWidth, y*tileHeight, tileWidth, tileHeight);
 //				UI.drawImage(numbers[19], x*tileWidth, y*tileWidth, tileWidth, tileHeight);
-				g.drawImage(numbers[19], (int) (x*tileWidth), (int) (y*tileHeight), (int) tileWidth, (int) tileHeight, UI.theUI.canvas);
+				if(play[i].isAlive()){
+					g.drawImage(numbers[19], (int) (x*tileWidth), (int) (y*tileHeight), (int) tileWidth, (int) tileHeight, UI.theUI.canvas);
+				}
 			}
 		}
 	}

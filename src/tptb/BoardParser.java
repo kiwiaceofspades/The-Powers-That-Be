@@ -25,6 +25,8 @@ public class BoardParser {
 				String s = sc.next();
 				if(s.equalsIgnoreCase("player")){
 					players[playIndex++] = parsePlayer(sc);
+				} else if(s.equals("VB")){
+					vars.add(parseMimic(sc));
 				} else if(s.equalsIgnoreCase("vb")){
 					vars.add(parseVarBlock(sc));
 				} else if(s.equalsIgnoreCase("eq")){
@@ -58,6 +60,13 @@ public class BoardParser {
 		String value = sc.next().toUpperCase();
 		return new VarBlock(new Loc(x, y), value.charAt(0));
 		
+	}
+	
+	public static VarBlock parseMimic(Scanner sc) {
+		int x = sc.nextInt();
+		int y = sc.nextInt();
+		String value = sc.next().toUpperCase();
+		return new VarBlock(new Loc(x, y), value.charAt(0), true);
 	}
 
 	public static Tile[][] parseBoard(Scanner sc){

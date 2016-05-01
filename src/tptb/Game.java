@@ -176,7 +176,7 @@ public class Game implements UIKeyListener{
 		}
 		if (p!=null){
 			Entity e = moveable(p, d);
-			if ((e = moveable(p, d))!=null){
+			if (e!=null){
 				if (e instanceof VarBlock){
 					e.move(d);
 				}
@@ -196,6 +196,9 @@ public class Game implements UIKeyListener{
 	}
 	
 	public Entity moveable(Entity en, Direction dir){
+		if(en instanceof Player){
+			if(!((Player)en).isAlive()){return null;}
+		}
 		Loc enLoc = en.getLocation();
 		int enx = enLoc.getX(), eny = enLoc.getY();
 		int targetx = enx, targety = eny;
@@ -218,6 +221,9 @@ public class Game implements UIKeyListener{
 		}
 		if (target == null){
 			return en;
+		} else if(target.isMimic() & en instanceof Player){
+			((Player) en).die();
+			return null;
 		} else if (target.equals(moveable(target, dir))){
 			return target;
 		} else {
