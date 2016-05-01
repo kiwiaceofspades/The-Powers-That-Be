@@ -3,6 +3,7 @@ package tptb;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JComponent;
@@ -28,12 +29,12 @@ public class Game implements UIKeyListener{
 	
 	private ArrayList<VarBlock> onBoard;
 	private Player[] players;
-	private ArrayList<String> boards;
+	private File[] boards;
 	private String[] exprs;
 	ExpressionHandler verify;
 	private JTextArea textArea;
 	private int level;
-	private int maxLevel = 4;
+	private int maxLevel;
 	private Display display;
 	//----------------------------------------------
 	//Constructor
@@ -45,16 +46,17 @@ public class Game implements UIKeyListener{
 		MusicBox.play();
 		level = 0;
 		UI.setKeyListener(this);
-		boards = new ArrayList<String>();
 		/* fills the array list for boards based on the number of boards
 		 * Use maxLevel +1 because board names start from name, however level
 		 * starts from 0
-		 */
+		 
 		for(int i = 1; i <= maxLevel+1; i++){
 			boards.add("Board"+i);
 			System.out.println(boards.get(i-1));
-		}
-		new BoardParser(boards.get(level), this);
+		}*/
+		loadBoards();
+		maxLevel = boards.length;
+		new BoardParser(boards[level], this);
 		verify = new ExpressionHandler(this);
 		setupTextArea();
 		//Prints the expressiong across three lines
@@ -77,7 +79,7 @@ public class Game implements UIKeyListener{
 	//----------------------------------------------
 	
 	public void setupLevel(){
-		new BoardParser(boards.get(level), this);
+		new BoardParser(boards[level], this);
 		verify = new ExpressionHandler(this);
 		setupTextArea();
 		UI.println(exprs[0]);
@@ -87,7 +89,7 @@ public class Game implements UIKeyListener{
 	}
 	
 	private void resetLevel(){
-		new BoardParser(boards.get(level), this);
+		new BoardParser(boards[level], this);
 		verify = new ExpressionHandler(this);
 		setupTextArea();
 		display.updateLevel(board, onBoard, players);
@@ -248,5 +250,12 @@ public class Game implements UIKeyListener{
 		textArea.setEditable(false);
 	}
 
-	
+	//----------------------------------------------
+	//Text Area control
+	//----------------------------------------------
+
+	private void loadBoards(){
+		File d = new File("boards");
+		this.boards = d.listFiles();
+	}
 }

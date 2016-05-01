@@ -6,13 +6,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+import ecs100.UI;
 import expression.ExpressionHandler;
 
 public class BoardParser {
 	
-	public BoardParser(String board_file, Game g){
+	public BoardParser(File board_file, Game g){
 		try {
-			Scanner sc = new Scanner(new File(board_file));
+			Scanner sc = new Scanner(board_file);
 			
 			Tile[][] tiles = parseBoard(sc);
 			
@@ -40,6 +41,7 @@ public class BoardParser {
 			g.setExpression(expr);
 			
 		} catch (FileNotFoundException e) {
+			UI.print("fileNotFound");
 			e.printStackTrace();
 		}
 	}

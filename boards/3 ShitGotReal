@@ -25,5 +25,5 @@ vb 7 9 b
 vb 3 9 -
 vb 3 7 -
 vb 6 9 -
-vb 9 8 -
+VB 9 8 -
 eq ( x ^ y ) / b = ( a + y ) * x  
