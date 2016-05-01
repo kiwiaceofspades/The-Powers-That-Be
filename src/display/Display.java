@@ -18,6 +18,7 @@ public class Display {
 	
 	private final BufferedImage[] tiles;
 	private final BufferedImage[] numbers;
+	private final BufferedImage[] train;
 	private final BufferedImage box;
 //	private final Graphics2D g;
 	
@@ -34,9 +35,10 @@ public class Display {
 		JComponent jcp = (JComponent)UI.theUI.canvas;
 		JSplitPane jsp = (JSplitPane) jcp.getParent().getParent().getParent();
 		jsp.setResizeWeight(1);		UI.setWindowSize(1024, 576 );
-		tiles = loadSpriteSheet("assets/hyptosis_tile-art-batch-1.png", 32, 15, 8);
-		numbers = loadSpriteSheet("assets/tiles.png", 64, 10, 2);
-		box = loadSpriteSheet("assets/RTS_Crate.png", 512, 1,1)[0];
+		tiles = loadSpriteSheet("assets/hyptosis_tile-art-batch-1.png", 15, 8);
+		numbers = loadSpriteSheet("assets/tiles.png", 10, 2);
+		box = loadSpriteSheet("assets/RTS_Crate.png", 1, 1)[0];
+		train = loadSpriteSheet("assets/train.png", 2, 2);
 		UI.setDivider(0.15);
 	}
 	
@@ -66,10 +68,17 @@ public class Display {
 	
 	public void showTrain(){
 		//TODO: implement the train
+		while (true){
+			for (int i=0; i<4; ++i){
+				UI.clearGraphics();
+				UI.drawImage(train[i], 0, 0);
+				UI.sleep(100);
+			}
+		}
 	}
 	
 	
-	private BufferedImage[] loadSpriteSheet(String filename, int imgsize, int rows, int cols){
+	private BufferedImage[] loadSpriteSheet(String filename, int rows, int cols){
 		BufferedImage sheet = null;
 		try {
 			sheet = ImageIO.read(new File(filename));
@@ -77,18 +86,19 @@ public class Display {
 			e.printStackTrace();
 			return null;
 		}
-		
+		int width = sheet.getWidth()/cols;
+		int height = sheet.getHeight()/rows;
 		BufferedImage[] sprites = new BufferedImage[rows * cols];
 		
 		for (int i = 0; i < rows; i++)
 		{
 		    for (int j = 0; j < cols; j++)
-		    {
+		    {	
 		        sprites[(i * cols) + j] = sheet.getSubimage(
-		            j * imgsize,
-		            i * imgsize,
-		            imgsize,
-		            imgsize
+		            j * width,
+		            i * height,
+		            width,
+		            height
 		        );
 		    }
 		}
