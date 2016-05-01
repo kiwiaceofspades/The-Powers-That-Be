@@ -34,7 +34,7 @@ public class MapEdit {
 	private final BufferedImage box;
 	
 	private int tileSize = 32;
-	private editAction action = editAction.block;
+	private editAction action = editAction.tile;
 	
 	public static void main(String[] args){
 		new MapEdit();
@@ -80,6 +80,8 @@ public class MapEdit {
 			UI.clearText();
 			UI.println("Action: " + action);
 		});
+		
+		UI.addTextField("Equation", (e) -> equation = e);
 		
 		UI.addButton("addLeft", () -> resize(1,0,0,0));
 		UI.addButton("addRight", () -> resize(0,1,0,0));
@@ -179,6 +181,11 @@ public class MapEdit {
 			}
 		}
 		players = new Loc[2];
+		map[1][1] = f;
+		players[0] = new Loc(1, 1);
+		map[5][5] = f;
+		players[1] = new Loc(5, 5);
+		
 		entities.clear();
 		
 		draw();
@@ -189,6 +196,15 @@ public class MapEdit {
 	}
 	private void save(JFileChooser chooser){
 		UI.println("save");
+		if (players[0] ==null || players[1]==null){
+			UI.println("Please place both players");
+			return;
+		}
+		
+		
+		if (equation==null){
+			equation = UI.askString("Please Enter an equation (this may have happened if you hadn't pressed enter on the sidebar, then press enter");
+		}
 		if (chooser.showSaveDialog(UI.getFrame()) != JFileChooser.APPROVE_OPTION) return;
 		File file = chooser.getSelectedFile();
 		if (file==null) return;
@@ -223,8 +239,9 @@ public class MapEdit {
 				out.write(line);
 			}
 			
-//			out.write(String.format("\nplayer %d %d\nplayer %d %d\n", 
-//					players[0].getX(), players[0].getY(), players[0].getX(), players[0].getY()));
+			out.write(String.format("\nplayer %d %d\nplayer %d %d\n", 
+					players[0].getX(), players[0].getY(), 
+					players[1].getX(), players[1].getY()));
 			
 			for (Entity e: entities){
 				VarBlock v = (VarBlock) e;
@@ -302,6 +319,15 @@ public class MapEdit {
 			break;
 		case player:
 			// get the player clicked on
+			if (players[0] != null && players[0].getX()==col && players[0].getY()==row){
+				players[0] = null;
+			} else if (players[1] != null && players[1].getX()==col && players[1].getY()==row){
+				players[1] = null;
+			} else if (players[0] == null){
+				players[0] = new Loc(col, row);
+			} else if (players[1] == null){
+				players[1] = new Loc(col, row);
+			}
 			break;
 		default:
 			break;
