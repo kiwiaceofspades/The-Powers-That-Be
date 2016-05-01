@@ -18,6 +18,7 @@ import javax.swing.JViewport;
 import display.Display;
 import ecs100.UI;
 import ecs100.UIButtonListener;
+import ecs100.UIFileChooser;
 import ecs100.UIKeyListener;
 import expression.ExpressionHandler;
 
@@ -33,9 +34,11 @@ public class Game implements UIKeyListener{
 	private String[] exprs;
 	ExpressionHandler verify;
 	private JTextArea textArea;
+	private File current; 
 	private int level;
 	private int maxLevel;
 	private Display display;
+	private boolean customMap;
 	//----------------------------------------------
 	//Constructor
 	//----------------------------------------------
@@ -45,6 +48,7 @@ public class Game implements UIKeyListener{
 		MusicBox.LoadMusic();
 		MusicBox.play();
 		level = 0;
+		customMap = false;
 		UI.setKeyListener(this);
 		/* fills the array list for boards based on the number of boards
 		 * Use maxLevel +1 because board names start from name, however level
@@ -57,7 +61,8 @@ public class Game implements UIKeyListener{
 		loadBoards();
 		setupTextArea();
 		maxLevel = boards.length;
-		new BoardParser(boards[level], this);
+		current = boards[level];
+		new BoardParser(current, this);
 		verify = new ExpressionHandler(this);
 	
 		//Prints the expressiong across three lines
@@ -68,6 +73,7 @@ public class Game implements UIKeyListener{
 		display = new Display(board, onBoard, players);
 		UI.getFrame().setTitle(boards[level].getName());
 		//adds control buttons
+		UI.addButton("Load Custom", () -> {loadCustomLevel(UIFileChooser.open("Select a map file"));});
 		UI.addButton("Reset", () -> resetLevel());
 		UI.addButton("Vol up", () -> MusicBox.volUp());
 		UI.addButton("Vol Down", () -> MusicBox.volDown());
@@ -79,18 +85,27 @@ public class Game implements UIKeyListener{
 	//Setup and reset of a level
 	//----------------------------------------------
 	
-	public void setupLevel(){
-		UI.getFrame().setTitle(boards[level].getName());
-		new BoardParser(boards[level], this);
+	private void setupLevel(){
+		UI.getFrame().setTitle(current.getName()+" - The Powers That Be");
+		new BoardParser(current, this);
 		verify = new ExpressionHandler(this);
 		UI.println(exprs[0]);
 		UI.println("=");
 		UI.println(exprs[1]);
 		display.updateLevel(board, onBoard, players);
 	}
+	private void loadCustomLevel(String fname){
+		if(fname != null){
+			File file = new File(fname);
+			current = file;
+			customMap = true;
+			UI.clearText();
+			setupLevel();
+		}
+	}
 	
 	private void resetLevel(){
-		new BoardParser(boards[level], this);
+		new BoardParser(current, this);
 		verify = new ExpressionHandler(this);
 		setupTextArea();
 		display.updateLevel(board, onBoard, players);
@@ -189,11 +204,13 @@ public class Game implements UIKeyListener{
 		}	
 		if(verify.evaluateExpression()){
 			UI.println("CORRECT!");
-			if(level < maxLevel){
+			if(customMap){
+				display.showTrain();
+			} else if(level < maxLevel){
 				level++;
+				current = boards[level];
 				setupLevel();
-			}
-			else if( level == maxLevel){
+			} else if( level == maxLevel){
 				display.showTrain();
 			}
 		}
